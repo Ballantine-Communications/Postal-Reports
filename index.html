@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daily Ad % Tally</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: paper tabs → load plan → totals → postal report (sheet preview + inputs) → page detail */
+:root{
+  --paper:#f4f6f8; --sheet:#ffffff; --ink:#18212c; --muted:#5b6776; --rule:#d9dfe6;
+  --rop:#2b5797; --rop-soft:#dfe8f5; --cls:#a8641f; --cls-soft:#f5e8d8; --focus:#2b5797; --err:#b3261e;
+  --f-ui:"Libre Franklin","Helvetica Neue",Arial,sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root{
+  --paper:#12171d; --sheet:#1a2129; --ink:#e6ebf1; --muted:#97a3b1; --rule:#2c3640;
+  --rop:#7fa6e0; --rop-soft:#20304a; --cls:#e0a463; --cls-soft:#3a2b1a; --focus:#7fa6e0; --err:#f2a49c; color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.45}
+[hidden]{display:none!important}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 16px 56px;display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px}
+h1{font-size:28px;font-weight:800;letter-spacing:-.01em;margin:0}
+.plan{color:var(--muted);font-size:14px;margin-top:4px}
+.plan b{color:var(--ink);font-weight:600}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:0 0 10px;font-weight:600}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+button,.btn{font:inherit;font-weight:600;font-size:14px;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);border-radius:6px;padding:8px 14px;cursor:pointer}
+button:hover,.btn:hover{border-color:var(--muted)}
+button.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+button.small{font-size:12px;padding:4px 10px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{min-width:64px}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.drop{border:1.5px dashed var(--rule);border-radius:8px;padding:16px 18px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;background:var(--sheet)}
+.drop.over{border-color:var(--rop);background:var(--rop-soft)}
+.drop p{margin:0;color:var(--muted);flex:1 1 280px;min-width:0}
+.drop p strong{color:var(--ink)}
+.status{font-size:13px;color:var(--muted);flex-basis:100%}
+.status:empty{display:none}
+.status.err{color:var(--err)}
+.settings{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:500}
+input[type=number],input[type=text],input[type=date]{font:inherit;font-family:var(--f-num);font-size:14px;padding:7px 9px;border:1px solid var(--rule);border-radius:6px;background:var(--sheet);color:var(--ink)}
+label.f input{width:120px}
+label.f input.wide{width:220px}
+.cap{font-size:13px;color:var(--muted);padding-bottom:8px}
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.summary{grid-template-columns:1fr}}
+.sum{background:var(--sheet);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.sum .head{display:flex;align-items:center;gap:8px;font-weight:600}
+.swatch{width:10px;height:10px;border-radius:2px;background:var(--ink)}
+.sum.rop .swatch{background:var(--rop)} .sum.cls .swatch{background:var(--cls)}
+.total{display:flex;flex-direction:column;gap:2px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+.total span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.total b{font-family:var(--f-num);font-variant-numeric:tabular-nums;font-size:30px;font-weight:600;line-height:1.1;letter-spacing:-.02em}
+.total b small{font-family:var(--f-ui);font-size:14px;font-weight:400;color:var(--muted);margin-left:6px}
+.pct{font-family:var(--f-num);font-size:26px;font-weight:600;line-height:1}
+.pct small{font-size:14px;color:var(--muted);font-weight:400;margin-left:6px;font-family:var(--f-ui)}
+.meter{height:6px;border-radius:3px;background:var(--rule);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--ink)}
+.sum.rop .meter i{background:var(--rop)} .sum.cls .meter i{background:var(--cls)}
+dl{display:grid;grid-template-columns:1fr auto;gap:4px 12px;margin:0;font-size:14px}
+dt{color:var(--muted)} dd{margin:0;text-align:right;font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.report-wrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.report-wrap{grid-template-columns:1fr}}
+.sheetview{background:#fff;border:1px solid var(--rule);border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}
+.sheetview svg{display:block;width:100%;height:auto}
+.panel{background:var(--sheet);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.panel h3{margin:0;font-size:14px}
+.panel .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+.note{font-size:13px;color:var(--muted);margin:0}
+.ins{width:100%;border-collapse:collapse;font-size:13px}
+.ins th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;padding:4px 4px;font-weight:600}
+.ins td{padding:3px 4px;border-top:1px solid var(--rule)}
+.ins input{width:100%;padding:4px 6px;font-size:13px}
+.ins td.n{width:64px} .ins td.v{text-align:right;font-family:var(--f-num);white-space:nowrap}
+.ins td.x{width:28px}
+.ins button{padding:2px 8px;font-size:13px}
+.insbox{overflow-x:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
+.tile{background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:8px;display:flex;flex-direction:column;gap:6px;text-align:left;font-weight:400;cursor:pointer}
+.tile .sheetbox{position:relative;aspect-ratio:var(--ratio,10/13);max-width:100%;border:1px solid var(--rule);border-radius:2px;background:var(--paper);overflow:hidden}
+.tile .fill{position:absolute;left:0;right:0;bottom:0;background:var(--rop);opacity:.85}
+.tile .fill.c{background:var(--cls)}
+.tile .fill.f{background:repeating-linear-gradient(135deg,var(--rule) 0 3px,transparent 3px 6px);opacity:1}
+.tile .r2{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.tile .id{font-weight:800;font-size:15px}
+.tile .in{font-family:var(--f-num);font-size:12px;color:var(--muted)}
+.tile .lab{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:3px;background:var(--rop-soft);color:var(--rop)}
+.tile.cls .chip{background:var(--cls-soft);color:var(--cls)}
+.hint{font-size:13px;color:var(--muted);margin:8px 0 0}
+.tablebox{overflow-x:auto;background:var(--sheet);border:1px solid var(--rule);border-radius:8px}
+table.detail{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+.detail th,.detail td{padding:7px 12px;border-bottom:1px solid var(--rule);text-align:left}
+.detail th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.detail td.r,.detail th.r{text-align:right}
+.detail tr:last-child td{border-bottom:0}
+.detail td input{width:90px;text-align:right;padding:4px 6px}
+.detail select{font:inherit;font-size:13px;padding:3px 6px;border:1px solid var(--rule);border-radius:4px;background:var(--paper);color:var(--ink)}
+details summary{cursor:pointer;font-weight:600;font-size:14px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;max-width:calc(100% - 32px);text-align:center;background:var(--ink);color:var(--paper);padding:8px 16px;border-radius:6px;font-size:14px;font-weight:500;z-index:5}
+.wk{display:block;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--cls);margin-top:2px}
+.snip{border:1.5px dashed var(--rule);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px;background:var(--paper)}
+.snip.over,.snip:focus{border-color:var(--rop);background:var(--rop-soft);outline:none}
+.snip span{font-size:13px;color:var(--muted)}
+.snip .note:empty{display:none}
+.snip table{width:100%;border-collapse:collapse;font-size:13px}
+.snip td,.snip th{padding:4px;border-top:1px solid var(--rule);text-align:left;vertical-align:middle}
+.snip th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border-top:0}
+.snip td.nm{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.snip select{font:inherit;font-size:13px;padding:3px 6px;border:1px solid var(--rule);border-radius:4px;background:var(--sheet);color:var(--ink);max-width:170px}
+.snip input[type=number]{width:64px;padding:4px 6px;font-size:13px}
+#printArea{display:none}
+@media print{
+  @page{size:letter;margin:0}
+  html,body{background:#fff!important}
+  .wrap,.toast{display:none!important}
+  #printArea{display:block}
+  #printArea svg{display:block;width:8.5in;height:11in}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Daily Ad % Tally</h1>
+      <div class="plan" id="planLine"></div>
+    </div>
+    <div class="tabs" role="group" aria-label="Publication" id="tabs">
+      <button type="button" data-p="TCR">TCR</button>
+      <button type="button" data-p="DH">DH</button>
+      <button type="button" data-p="TJ">TJ</button>
+    </div>
+  </header>
+
+  <section class="drop" id="drop">
+    <p><strong>Drop a page-plan thumbnails PDF here</strong> or choose one. The publication is picked automatically from the PDF. Numbered display ads count as ROP. Obituaries, legals, Pro Con and Marketplace pages, and one-column classified boxes count as Classified. Unnumbered space is a house ad or filler and is left out.</p>
+    <label class="btn" for="file">Choose PDF<input id="file" type="file" accept="application/pdf,.pdf" hidden></label>
+    <div class="status" id="status"></div>
+  </section>
+
+  <section>
+    <h2>Totals</h2>
+    <div class="summary" id="summary"></div>
+  </section>
+
+  <section>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+      <h2>Postal rates report</h2>
+      <div class="actions">
+        <button type="button" class="primary" id="printBtn">Print report</button>
+        <button type="button" id="pdfBtn">Open as PDF</button>
+        <button type="button" id="copyRow">Copy bottom line</button>
+      </div>
+    </div>
+    <div class="report-wrap">
+      <div class="sheetview" id="sheetView"></div>
+      <div class="panel">
+        <h3>Report details</h3>
+        <div class="row">
+          <label class="f" for="repDate">Report date<input id="repDate" type="date"></label>
+          <label class="f" for="repWt" id="wtLabel">Weight (WT)<input id="repWt" type="number" min="0" step="0.01"></label>
+          <label class="f" for="repWtIn" id="wtInWrap">Weight with inserts<input id="repWtIn" type="number" min="0" step="0.01"></label>
+        </div>
+        <p class="note" id="wtNote"></p>
+        <div id="insertsPanel" hidden>
+          <h3 style="margin-bottom:6px">Inserts</h3>
+          <p class="note" style="margin-bottom:8px">Paste this week's schedule above, or enter the page count for each insert by hand. Height × width × pages adds up the insert inches, then inserts ÷ <span id="divShow"></span> = TM.</p>
+          <div class="snip" id="snip" tabindex="0" aria-label="Drop area for this week's insert schedule">
+            <b>This week's insert schedule</b>
+            <span>Copy the rows from the inserts spreadsheet and paste them here with Ctrl+V. You can also paste or drop a screenshot of it.</span>
+            <div class="row"><label class="btn small" for="snipFile">Choose screenshot<input id="snipFile" type="file" accept="image/*" hidden></label></div>
+            <p class="note" id="snipStatus" aria-live="polite"></p>
+            <div id="snipResult"></div>
+          </div>
+          <div class="insbox"><table class="ins">
+            <thead><tr><th>Insert</th><th>H</th><th>W</th><th>Pgs</th><th style="text-align:right">Inches</th><th></th></tr></thead>
+            <tbody id="insRows"></tbody>
+          </table></div>
+          <div class="row" style="justify-content:space-between;margin-top:8px">
+            <button type="button" class="small" id="addIns">Add insert</button>
+            <button type="button" class="small" id="clearPgs">Set all pages to 0</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <details id="setBox">
+      <summary>Settings for <span id="setName"></span></summary>
+      <div class="settings" style="margin-top:14px">
+        <label class="f" for="perPage">Column inches per page<input id="perPage" type="number" min="1" step="0.001"></label>
+        <label class="f" for="paperTotal">Paper total ad inches<input id="paperTotal" type="number" min="0" step="0.001" placeholder="auto"></label>
+        <label class="f" for="kw">Classified section keyword(s)<input id="kw" class="wide" type="text"></label>
+        <label class="f" for="cw">Classified ads labeled<input id="cw" class="wide" type="text"></label>
+        <label class="f" for="ch">Classified page headers<input id="ch" class="wide" type="text"></label>
+        <label class="f" for="ex">Don't count ads labeled<input id="ex" class="wide" type="text"></label>
+        <label class="f" for="div" id="divWrap">Inserts divisor<input id="div" type="number" min="0.001" step="0.001"></label>
+        <div class="cap" id="capLine"></div>
+      </div>
+    </details>
+  </section>
+
+  <section>
+    <h2>Pages</h2>
+    <div class="grid" id="grid"></div>
+    <p class="hint">Click a page to switch it between ROP and Classified. On a Classified page, its unnumbered space counts as Classified inches. Edit the split in the table below.</p>
+  </section>
+
+  <section>
+    <h2>Page detail</h2>
+    <div class="tablebox"><table class="detail">
+      <thead><tr><th>Page</th><th>Section</th><th>Type</th><th class="r">ROP in</th><th class="r">Classified in</th><th class="r">Not counted</th><th class="r">Booked</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+</div>
+<div class="toast" id="toast" hidden></div>
+<div id="printArea" aria-hidden="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+/* ===== Publications ===== */
+const WT_BIG=[[32,"4.0 or 0.2500",4.0],[28,"3.5 or 0.2188",3.5],[24,"3.0 or 0.1875",3.0],[20,"2.5 or 0.1625",2.5],[16,"2.0 or 0.1250",2.0],[14,"1.75 or 0.109375",1.75],[12,"1.5 or 0.09375",1.5]];
+const PAPERS={
+  TCR:{code:"TCR", name:"Tri-City Record", title:"Tri-City Record", match:/tri.?city/i, perPage:75.75, depth:13,
+       classLine:"Total Inches Classified Ads", year:2, colHead:["AD","INCHES"],
+       wt:[[32,"2.4 or 1.5",2.4],[28,"2.1 or 0.13125",2.1],[24,"1.9 or 0.11875",1.9],[20,"1.6 or 0.1",1.6],[16,"1.3 or 0.8125",1.3],[12,"1.0 or 0.625",1.0]]},
+  DH:{code:"DH", name:"Durango Herald", title:"DURANGO HERALD", match:/durango/i, perPage:126, depth:21,
+       classLine:"Total Inches New Today Class Ads", year:4, colHead:["","INCHES"], wt:WT_BIG},
+  TJ:{code:"TJ", name:"The Journal", title:"CORTEZ JOURNAL", match:/journal|cortez/i, perPage:126, depth:21,
+       combined:true, inserts:true, year:4, wt:WT_BIG}
+};
+const DEFAULT_INSERTS=[["Save",6.75,10.25],["Livingston Hearing",20,10.5],["Safeway",20.25,8.25],["Safeway",20.25,3.5],["Life Screening",8.5,11],
+  ["Honeyville",11,8.5],["Smart Source",6.25,10.25],["Four Corners Welding",20.25,8.25],["Dollar General",11,7],["IFA",11,11],
+  ["Montezuma Tax Lein",20.75,10],["Slavens",11,11],["Best of Cortez",11,11],["REGuide",8.5,11]];
+const SAMPLES={"TCR":{"meta":{"product":"Tri City Record","date":"10/26/26","plan":"TCR2026-10-26"},"pages":[["A1","Cover-default",0,0,0,0],["A2","default",37.542,37.542,0,0],["A3","Local-default",18.444,18.444,0,0],["A4","default",0,0,0,0],["A5","default",56.312,56.312,0,0],["A6","default",0,0,0,0],["A7","default",0,0,0,0],["A8","default-Opinion",42,42,0,0],["A9","default",0,0,0,0],["A10","default",0,0,0,0],["A11","default",0,0,0,0],["A12","default",0,0,0,0],["A13","Regional/State-default",0,0,0,0],["A14","default-State Wire",0,0,0,0],["A15","default",48.057,0,48.057,0],["A16","default",0,0,0,0],["A17","Sports-default",0,0,0,0],["A18","default",9.222,9.222,0,0],["A19","ProCon-default",0,0,0,0],["A20","default-Class",0,0,0,0]]},"DH":{"meta":{"product":"Durango Herald","date":"10/26/26","plan":"dh102626"},"pages":[["A1","A Section",0,0,0,0],["A2","A Section",84.042,30,54.042,0],["A3","A Section",0,0,0,0],["A4","A Section",0,0,0,0],["A5","A Section",0,0,0,0],["A6","A Section",0,0,0,0],["A7","A Section",75,75,0,0],["A8","A Section",90,90,0,0],["A9","A Section",64,64,0,0],["A10","A Section",0,0,0,0],["A11","A Section",18,0,18,0],["A12","A Section",15,15,0,0],["A13","A Section",0,0,0,0],["A14","A Section",0,0,0,0]]},"TJ":{"meta":{"product":"The Journal","date":"10/21/26","plan":"tj102126"},"pages":[["A1","A Section",15,15,0,0],["A2","A Section",0,0,0,0],["A3","A Section",17.691,0,0,17.691],["A4","A Section",0,0,0,0],["A5","A Section",0,0,0,0],["A6","A Section",30,30,0,0],["A7","A Section",60,60,0,0],["A8","A Section",68,68,0,0],["A9","A Section",0,0,0,0],["A10","A Section",0,0,0,0],["A11","A Section",60,60,0,0],["A12","A Section",0,0,0,0],["B1","B Section",15,15,0,0],["B2","B Section",0,0,0,0],["B3","B Section",24,24,0,0],["B4","B Section",0,0,0,0],["B5","B Section",0,0,0,0],["B6","B Section",30,30,0,0],["B7","B Section",56,56,0,0],["B8","B Section",0,0,0,0],["B9","B Section",114.543,23.8,90.743,0],["B10","B Section",122.745,0,122.745,0],["B11","B Section",74.834,0,74.834,0],["B12","B Section",33,0,33,0]]}};
+
+/* ===== State ===== */
+const $=id=>document.getElementById(id);
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
+function samplePlan(code){
+  const s=SAMPLES[code], m=Object.assign({},s.meta,{file:"Example plan"});
+  const ex={TCR:{repDate:"2026-10-23"},DH:{repDate:"2026-10-26"},TJ:{repDate:"2026-10-21",weightIn:5.2}}[code]||{};
+  return {meta:Object.assign(m,ex), example:true, pages:s.pages.map(([id,label,inches,rop,cls,fill])=>({id,label,inches,rop,cls,fill,type:null}))};
+}
+function freshPaper(code){
+  return {plan:samplePlan(code), settings:{perPage:PAPERS[code].perPage, kw:"Class", ex:"Death Notice", cw:"Obituar, Memoriam, Legal Notice", ch:"Pro Con, Marketplace", div:1.708},
+          inserts: code==="TJ" ? DEFAULT_INSERTS.map(([name,h,w],i)=>({name,h,w,pgs:code==="TJ"&&name==="Safeway"&&i===2?4:(name==="Dollar General"?8:0)})) : []};
+}
+let S=store.get("dailyad.v2")||{active:"TCR",papers:{}};
+Object.keys(PAPERS).forEach(c=>{ if(!S.papers[c]) S.papers[c]=freshPaper(c); });
+const P=()=>S.papers[S.active], CFG=()=>PAPERS[S.active];
+function save(){store.set("dailyad.v2",S)}
+
+/* ===== Numbers ===== */
+const r3=v=>Math.round(v*1000)/1000;
+const fmt=(n,d=1)=>(Math.round(n*10**d)/10**d).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d});
+const fmtIn=n=>r3(n).toLocaleString(undefined,{maximumFractionDigits:3});
+const n2=v=>v.toFixed(2);
+const words=s=>String(s||"").split(",").map(x=>x.trim()).filter(Boolean);
+const isClassLabel=label=>words(P().settings.kw).some(k=>label.toLowerCase().includes(k.toLowerCase()));
+const typeOf=p=>p.type||(isClassLabel(p.label)||(+p.cls||0)>(+p.rop||0)?"cls":"rop");
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function totals(){
+  const st=P(), cfg=CFG(), pages=st.plan.pages, cap=+st.settings.perPage||0;
+  const g={rop:{n:0,inch:0},cls:{n:0,inch:0}}; let fill=0;
+  pages.forEach(p=>{ g[typeOf(p)].n++; g.rop.inch+=+p.rop||0; g.cls.inch+=+p.cls||0; fill+=+p.fill||0; });
+  const n=pages.length, auto=n*cap, paper=(+st.plan.meta.total>0)?+st.plan.meta.total:auto;
+  const counted=g.rop.inch+g.cls.inch;
+  const pct=v=>paper?v/paper*100:0;
+  const insertsIn=st.inserts.reduce((a,r)=>a+(+r.h||0)*(+r.w||0)*(+r.pgs||0),0);
+  const div=+st.settings.div||1.708, tm=insertsIn/div;
+  const tpadIn=counted+tm, tbrIn=paper+tpadIn;
+  const wtRow=cfg.wt.find(r=>r[0]===n);
+  const wt=+st.plan.meta.weight>0?+st.plan.meta.weight:(wtRow?wtRow[2]:0);
+  const wtIn=+st.plan.meta.weightIn||0;
+  return {cap,n,auto,paper,fill,counted,pct:pct(counted),
+    rop:Object.assign(g.rop,{pct:pct(g.rop.inch),adPages:cap?g.rop.inch/cap:0}),
+    cls:Object.assign(g.cls,{pct:pct(g.cls.inch),adPages:cap?g.cls.inch/cap:0}),
+    insertsIn,div,tm,tpadIn,tbrIn,pctIn:tbrIn?tpadIn/tbrIn*100:0,wt,wtIn,thk:n*0.006};
+}
+const wtText=v=>v?`${v.toFixed(1)}=${+(v/16).toFixed(4)}`:"";
+const usDate=(iso,year)=>{const m=String(iso||"").match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?`${m[2]}/${m[3]}/${year===4?m[1]:m[1].slice(2)}`:""};
+
+/* ===== Report layout (US Letter, points, y from top) ===== */
+function reportOps(cfg,T,repDate,inserts){
+  const ops=[],RED=[192,0,0],INK=[20,20,20],GREY=[110,110,110];
+  const Tx=(s,x,y,o={})=>ops.push({t:"text",s:String(s),x,y,size:o.size||11,bold:!!o.bold,color:o.color||INK,align:o.align||"left"});
+  const L=(x1,y1,x2,y2,w=0.8)=>ops.push({t:"line",x1,y1,x2,y2,w});
+  const B=(x,y,w,h,fill,stroke)=>ops.push({t:"rect",x,y,w,h,fill:fill||null,stroke:stroke||null});
+  const date=usDate(repDate,cfg.year);
+  if(!cfg.combined){
+    const V1=385,C2=480,LX=54,RX=558;
+    Tx("POSTAL RATES",306,62,{bold:true,align:"center"});
+    Tx(cfg.title,306,80,{bold:true,size:14,align:"center"});
+    Tx("DAILY AD % FOR",306,98,{bold:true,align:"center"}); Tx(date,C2,98,{bold:true,align:"center"});
+    if(cfg.colHead[0]) Tx(cfg.colHead[0],C2,116,{size:10,align:"center"});
+    Tx(cfg.colHead[1],C2,130,{size:10,align:"center"});
+    Tx("TOTAL AD INCHES REPORT",LX,168); Tx(fmtIn(T.rop.inch),V1,168,{bold:true,color:RED,align:"right"}); L(232,173,V1+4,173);
+    Tx(cfg.classLine,LX,194); Tx(fmtIn(T.cls.inch),V1,194,{bold:true,color:RED,align:"right"}); L(232,199,V1+4,199);
+    Tx("GRAND TOTAL INCHES",LX,232); Tx(n2(T.counted),C2,232,{align:"center"});
+    Tx("PAGES TODAY (Press Run Schedule)",LX,272); Tx(T.n,V1,272,{bold:true,color:RED,align:"right"}); L(236,277,V1+4,277);
+    Tx("TOTAL COLUMN INCHES IN PAPER",LX,292); Tx(n2(T.paper),C2,292,{align:"center"});
+    Tx("PERCENT OF ADS",306,310,{align:"center"});
+    Tx("PERCENT OF ADS",LX,332); B(410,318,140,20,null,INK); Tx(fmt(T.pct,2)+"%",C2,332,{bold:true,align:"center"});
+    L(LX,352,RX,352);
+    Tx(T.wt||"",V1,366,{size:9,align:"right"});
+    Tx("THK= Thickness",232,420); Tx("pgs x 0.006",232,434,{size:8,color:GREY}); Tx(T.thk.toFixed(3),520,420,{align:"right"});
+    Tx("WT=",LX,478,{size:9});
+    cfg.wt.forEach((r,i)=>{const y=496+i*16; if(r[0]===T.n) B(LX-2,y-11,178,15,[255,255,0]); Tx(`${r[0]} = ${r[1]}`,LX,y,{size:9});});
+    const cols=[["TBR",LX,n2(T.paper)],["TPAD",232,n2(T.counted)],["%",390,fmt(T.pct,2)+"%"],["WT",470,String(T.wt||"")],["PGS",505,String(T.n)],["THK",538,T.thk.toFixed(3)]];
+    const yb=Math.max(640,496+cfg.wt.length*16+40);
+    cols.forEach(([h,x,v])=>{Tx(h,x,yb,{size:9});L(x,yb+2,x+h.length*5.6,yb+2,0.5);Tx(v,x,yb+16,{size:9});});
+    return ops;
+  }
+  // The Journal: in-paper ads (OUT) plus inserts (IN)
+  const LX=54,V1=360,C2=470;
+  Tx("POSTAL RATES",306,50,{bold:true,size:10,align:"center"});
+  Tx(cfg.title,306,63,{bold:true,size:10,align:"center"});
+  Tx("DAILY AD % FOR",306,76,{bold:true,size:10,align:"center"}); Tx(date,C2,76,{bold:true,size:10,align:"center"});
+  Tx("AD",C2,89,{size:9,align:"center"}); Tx("INCHES",C2,102,{size:9,align:"center"});
+  Tx("TOTAL AD INCHES REPORT",LX,146,{size:9}); Tx(fmtIn(T.counted),V1,146,{bold:true,size:10,color:RED,align:"right"}); L(228,150,V1+4,150);
+  Tx("GRAND TOTAL INCHES",LX,160,{size:9}); Tx("TPAD",228,160,{size:9}); Tx(n2(T.counted),C2,160,{size:9,align:"center"});
+  Tx("PAGES TODAY (Press Run Schedule)",LX,190,{size:9}); Tx(T.n,V1,190,{bold:true,size:10,color:RED,align:"right"}); L(228,194,V1+4,194);
+  Tx("TBR",228,204,{size:9}); Tx("TOTAL COLUMN INCHES IN PAPER",LX,204,{size:9}); Tx(n2(T.paper),C2,204,{size:9,align:"center"});
+  Tx("PERCENT OF ADS",LX,232,{size:9}); B(410,222,110,14,null,INK); B(520,222,38,14,null,INK);
+  Tx(fmt(T.pct,2)+"%",C2,232,{size:9,align:"center"}); Tx("OUT",539,232,{bold:true,size:9,align:"center"});
+  Tx(wtText(T.wt),228,248,{size:9}); Tx(wtText(T.wtIn),228,258,{size:7});
+  // insert list, grouped by name
+  const groups=[]; inserts.forEach(r=>{const g=groups[groups.length-1]; if(g&&g.name===r.name) g.rows.push(r); else groups.push({name:r.name,rows:[r]});});
+  const lines=groups.reduce((a,g)=>a+1+g.rows.length,0);
+  const lh=Math.min(13.5,Math.max(8,340/Math.max(1,lines))); let y=276;
+  groups.forEach((g,i)=>{
+    Tx(`${i+1}. ${g.name}`,LX,y,{size:9}); L(LX,y+2,LX+108,y+2,0.4); y+=lh;
+    g.rows.forEach(r=>{ const v=(+r.h||0)*(+r.w||0)*(+r.pgs||0);
+      Tx(`${+r.h||0} H`,LX+30,y,{size:7,align:"right"}); Tx(`${+r.w||0} W`,LX+70,y,{size:7,align:"right"});
+      Tx(`${+r.pgs||0} Pgs`,LX+102,y,{size:7,align:"right"}); Tx(r3(v),236,y-lh/2+3,{size:9,align:"right"}); y+=lh; });
+  });
+  Tx(r3(T.insertsIn),236,y+6,{size:8,align:"right"});
+  Tx("TM=",300,276,{size:9}); Tx(n2(T.tm),C2+12,276,{size:9,align:"right"}); L(400,279,C2+14,279,0.5);
+  Tx("TPAD=",296,300,{size:9}); Tx(n2(T.tpadIn),C2+12,300,{size:9,align:"right"}); L(400,303,C2+14,303,0.5);
+  Tx("TBR=",300,324,{size:9}); Tx(n2(T.tbrIn),C2+12,324,{size:9,align:"right"}); L(400,327,C2+14,327,0.5);
+  B(400,372,120,14,null,INK); B(520,372,38,14,null,INK);
+  Tx(fmt(T.pctIn,2)+"%",516,382,{size:9,align:"right"}); Tx("IN",539,382,{bold:true,size:9,align:"center"});
+  Tx(`(inserts / ${T.div} = TM)`,330,520,{size:8});
+  const yT=Math.max(y+24,640);
+  Tx("THK= Thickness",228,yT,{size:9}); Tx("pgs x 0.006",228,yT+9,{size:6,color:GREY}); Tx(T.thk.toFixed(3),C2,yT,{size:10,align:"center"});
+  const row=(yy,tbr,tpad,pc,wt,tag)=>{
+    [["TBR",LX],["TPAD",88],["%",130],["WT",205],["PGS",250],["THK",300]].forEach(([h,x])=>{Tx(h,x,yy,{size:7});L(x,yy+2,x+h.length*4,yy+2,0.4);});
+    Tx(tag,556,yy,{size:7,align:"right"});
+    Tx(tbr,LX,yy+11,{size:7}); Tx(tpad,88,yy+11,{size:7}); Tx(pc,130,yy+11,{size:7}); Tx(wt,205,yy+11,{size:7});
+    Tx(T.n,250,yy+11,{size:7}); Tx(T.thk.toFixed(3),300,yy+11,{size:7});
+  };
+  row(yT+34,n2(T.tbrIn),n2(T.tpadIn),fmt(T.pctIn,2)+"%",wtText(T.wtIn),"IN");
+  row(yT+70,n2(T.paper),n2(T.counted),fmt(T.pct,2)+"%",wtText(T.wt),"OUT");
+  return ops;
+}
+function currentOps(){const st=P();return reportOps(CFG(),totals(),st.plan.meta.repDate||todayISO(),st.inserts);}
+function opsToSvg(ops){
+  const c=a=>`rgb(${a.join(",")})`, anc={left:"start",center:"middle",right:"end"};
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 792" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="Postal rates report">`+
+    `<rect x="0" y="0" width="612" height="792" fill="#fff"/>`+
+    ops.filter(o=>o.t==="rect").map(o=>`<rect x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}" fill="${o.fill?c(o.fill):"none"}"${o.stroke?` stroke="${c(o.stroke)}" stroke-width="0.8"`:""}/>`).join("")+
+    ops.map(o=>o.t==="line"?`<line x1="${o.x1}" y1="${o.y1}" x2="${o.x2}" y2="${o.y2}" stroke="#000" stroke-width="${o.w}"/>`
+      :o.t==="text"?`<text x="${o.x}" y="${o.y}" font-size="${o.size}" font-weight="${o.bold?700:400}" fill="${c(o.color)}" text-anchor="${anc[o.align]}">${esc(o.s)}</text>`:"").join("")+`</svg>`;
+}
+function opsToPdf(ops){
+  const doc=new window.jspdf.jsPDF({unit:"pt",format:"letter"});
+  ops.filter(o=>o.t==="rect").forEach(o=>{ if(o.fill) doc.setFillColor(...o.fill); if(o.stroke){doc.setDrawColor(...o.stroke);doc.setLineWidth(0.8);}
+    doc.rect(o.x,o.y,o.w,o.h,o.fill&&o.stroke?"FD":o.fill?"F":"S"); });
+  ops.forEach(o=>{ if(o.t==="line"){doc.setDrawColor(0,0,0);doc.setLineWidth(o.w);doc.line(o.x1,o.y1,o.x2,o.y2);}
+    else if(o.t==="text"){doc.setFont("helvetica",o.bold?"bold":"normal");doc.setFontSize(o.size);doc.setTextColor(...o.color);doc.text(o.s,o.x,o.y,{align:o.align});} });
+  return doc;
+}
+
+/* ===== Render ===== */
+function render(){
+  const st=P(), cfg=CFG(), T=totals(), m=st.plan.meta;
+  document.querySelectorAll("#tabs button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.p===S.active)));
+  $("planLine").innerHTML=`<b>${esc(cfg.name)}</b> · ${esc(m.date||"")} · plan ${esc(m.plan||"")} · ${st.plan.example?"example plan":esc(m.file||"")}`;
+  $("setName").textContent=cfg.name;
+  // totals cards
+  const card=(cls,name,label,inch,pct,lines)=>`<div class="sum ${cls}"><div class="head"><span class="swatch"></span>${name}</div>
+    <div class="total"><span>${label}</span><b>${fmtIn(inch)}<small>in</small></b></div>
+    <div class="pct">${fmt(pct,2)}%<small>of paper</small></div><div class="meter"><i style="width:${Math.min(100,pct)}%"></i></div>
+    <dl>${lines.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl></div>`;
+  $("summary").innerHTML=
+    card("rop","ROP","Total ROP ad inches",T.rop.inch,T.rop.pct,[["Pages",T.rop.n],["Ad pages",fmt(T.rop.adPages,2)]])+
+    card("cls","Classified","Total Classified ad inches",T.cls.inch,T.cls.pct,[["Pages",T.cls.n],["Ad pages",fmt(T.cls.adPages,2)]])+
+    card("tot","Whole paper","Total ad inches",T.counted,T.pct,[["Pages",T.n],["Paper total ad inches",n2(T.paper)],["House ads / filler (not counted)",fmtIn(T.fill)]]);
+  // report
+  $("sheetView").innerHTML=opsToSvg(currentOps());
+  const d=$("repDate"); if(document.activeElement!==d) d.value=m.repDate||todayISO();
+  const w=$("repWt"); if(document.activeElement!==w) w.value=T.wt||"";
+  $("wtLabel").firstChild.textContent=cfg.inserts?"Weight, paper only (OUT)":"Weight (WT)";
+  $("wtInWrap").hidden=!cfg.inserts;
+  const wi=$("repWtIn"); if(document.activeElement!==wi) wi.value=T.wtIn||"";
+  const row=cfg.wt.find(r=>r[0]===T.n);
+  $("wtNote").textContent=row?`The weight table lists ${T.n} pages as ${row[1]}. Type the weighed amount if it's different.`:`The weight table has no entry for ${T.n} pages. Type the weighed amount.`;
+  $("insertsPanel").hidden=!cfg.inserts; $("divWrap").hidden=!cfg.inserts;
+  if(cfg.inserts){
+    $("divShow").textContent=T.div;
+    const ae=document.activeElement, keep=ae&&ae.dataset&&ae.dataset.ins?ae.id:null;
+    if(!keep) $("insRows").innerHTML=st.inserts.map((r,i)=>`<tr>
+      <td><input type="text" id="insn-${i}" data-ins="${i}" data-k="name" value="${esc(r.name)}" aria-label="Insert name">${r.temp?'<span class="wk">This week only</span>':""}</td>
+      <td class="n"><input type="number" id="insh-${i}" data-ins="${i}" data-k="h" step="0.01" min="0" value="${+r.h||0}" aria-label="${esc(r.name)} height"></td>
+      <td class="n"><input type="number" id="insw-${i}" data-ins="${i}" data-k="w" step="0.01" min="0" value="${+r.w||0}" aria-label="${esc(r.name)} width"></td>
+      <td class="n"><input type="number" id="insp-${i}" data-ins="${i}" data-k="pgs" step="1" min="0" value="${+r.pgs||0}" aria-label="${esc(r.name)} pages"></td>
+      <td class="v" id="insv-${i}">${fmtIn((+r.h||0)*(+r.w||0)*(+r.pgs||0))}</td>
+      <td class="x"><button type="button" data-del="${i}" aria-label="Remove ${esc(r.name)}">×</button></td></tr>`).join("");
+    else st.inserts.forEach((r,i)=>{const c=$("insv-"+i); if(c) c.textContent=fmtIn((+r.h||0)*(+r.w||0)*(+r.pgs||0));});
+  }
+  // settings
+  const setv=(id,v)=>{const e=$(id); if(document.activeElement!==e) e.value=v;};
+  setv("perPage",st.settings.perPage); setv("kw",st.settings.kw); setv("ex",st.settings.ex); setv("cw",st.settings.cw||""); setv("ch",st.settings.ch||""); setv("div",st.settings.div);
+  setv("paperTotal",+m.total>0?m.total:""); $("paperTotal").placeholder=n2(T.auto);
+  $("capLine").textContent=`${T.n} pages × ${fmtIn(T.cap)} = ${n2(T.auto)} column inches`;
+  // pages
+  document.documentElement.style.setProperty("--ratio",cfg.depth>15?"10/21":"10/13");
+  $("grid").innerHTML=st.plan.pages.map((p,i)=>{
+    const t=typeOf(p), ph=T.cap?Math.min(100,(+p.rop||0)/T.cap*100):0, ch=T.cap?Math.min(100-ph,(+p.cls||0)/T.cap*100):0, fh=T.cap?Math.min(100-ph-ch,(+p.fill||0)/T.cap*100):0;
+    return `<button type="button" class="tile ${t}" data-i="${i}" aria-label="${p.id}: ${fmtIn(+p.rop||0)} ROP, ${fmtIn(+p.cls||0)} classified, ${fmtIn(+p.fill||0)} not counted. Click to switch type.">
+      <div class="r2"><span class="id">${esc(p.id)}</span><span class="chip">${t==="cls"?"Class":"ROP"}</span></div>
+      <div class="sheetbox"><div class="fill" style="height:${ph}%"></div><div class="fill c" style="height:${ch}%;bottom:${ph}%"></div><div class="fill f" style="height:${fh}%;bottom:${ph+ch}%"></div></div>
+      <div class="r2"><span class="lab" title="${esc(p.label)}">${esc(p.label||"—")}</span><span class="in">${fmt(ph+ch,0)}%</span></div></button>`;}).join("");
+  const ae=document.activeElement, editing=ae&&ae.closest&&ae.closest("#rows");
+  if(!editing) $("rows").innerHTML=st.plan.pages.map((p,i)=>{const t=typeOf(p);
+    return `<tr><td><b>${esc(p.id)}</b></td><td>${esc(p.label)}</td>
+      <td><select id="type-${i}" data-i="${i}" aria-label="${p.id} type"><option value="rop"${t==="rop"?" selected":""}>ROP</option><option value="cls"${t==="cls"?" selected":""}>Classified</option></select></td>
+      ${["rop","cls","fill"].map(f=>`<td class="r"><input type="number" id="${f}-${i}" data-i="${i}" data-f="${f}" min="0" step="0.001" value="${+p[f]||0}" aria-label="${p.id} ${f}"></td>`).join("")}
+      <td class="r num">${fmtIn(+p.inches||0)}</td></tr>`;}).join("");
+}
+
+/* ===== Events ===== */
+$("tabs").addEventListener("click",e=>{const b=e.target.closest("button[data-p]"); if(!b) return; S.active=b.dataset.p; save(); render();});
+function setType(p,t){ t=t||(typeOf(p)==="rop"?"cls":"rop"); p.type=t;
+  if(t==="cls"){p.cls=r3((+p.cls||0)+(+p.fill||0));p.fill=0;} else {p.fill=r3((+p.fill||0)+(+p.cls||0));p.cls=0;} }
+$("grid").addEventListener("click",e=>{const b=e.target.closest(".tile"); if(!b) return; setType(P().plan.pages[+b.dataset.i]); save(); render();});
+$("rows").addEventListener("change",e=>{const p=P().plan.pages[+e.target.dataset.i]; if(!p) return;
+  if(e.target.tagName==="SELECT"){ setType(p,e.target.value); e.target.blur(); } else p[e.target.dataset.f]=Math.max(0,parseFloat(e.target.value)||0);
+  save(); render();});
+$("rows").addEventListener("focusout",()=>setTimeout(()=>{ if(!document.activeElement.closest("#rows")) render(); },0));
+$("repDate").addEventListener("change",e=>{P().plan.meta.repDate=e.target.value;save();render();});
+$("repWt").addEventListener("input",e=>{P().plan.meta.weight=parseFloat(e.target.value)||0;save();render();});
+$("repWtIn").addEventListener("input",e=>{P().plan.meta.weightIn=parseFloat(e.target.value)||0;save();render();});
+$("paperTotal").addEventListener("input",e=>{P().plan.meta.total=parseFloat(e.target.value)||0;save();render();});
+[["perPage","perPage",true],["kw","kw"],["ex","ex"],["cw","cw"],["ch","ch"],["div","div",true]].forEach(([id,k,num])=>$(id).addEventListener("input",e=>{
+  P().settings[k]=num?(parseFloat(e.target.value)||0):e.target.value; save(); render();}));
+$("insRows").addEventListener("input",e=>{const i=e.target.dataset.ins; if(i==null) return; const r=P().inserts[+i];
+  const k=e.target.dataset.k; r[k]=k==="name"?e.target.value:Math.max(0,parseFloat(e.target.value)||0); save(); render();});
+$("insRows").addEventListener("focusout",()=>setTimeout(()=>{ const a=document.activeElement; if(!(a&&a.dataset&&a.dataset.ins)) render(); },0));
+$("insRows").addEventListener("click",e=>{const b=e.target.closest("[data-del]"); if(!b) return; P().inserts.splice(+b.dataset.del,1); save(); render();});
+$("addIns").addEventListener("click",()=>{P().inserts.push({name:"New insert",h:11,w:11,pgs:0}); save(); render(); const i=P().inserts.length-1; const el=$("insn-"+i); if(el){el.focus();el.select();}});
+$("clearPgs").addEventListener("click",()=>{P().inserts.forEach(r=>r.pgs=0); save(); render(); toast("All insert pages set to 0");});
+
+let toastT; function toast(msg){const t=$("toast");t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2600);}
+function copyText(txt,msg){
+  const fb=()=>{const ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();
+    let ok=false;try{ok=document.execCommand("copy")}catch(e){} ta.remove(); toast(ok?msg:"Copy was blocked. Select the numbers and copy them by hand.");};
+  try{navigator.clipboard.writeText(txt).then(()=>toast(msg),fb);}catch(e){fb();}
+}
+$("copyRow").addEventListener("click",()=>{const T=totals(), cfg=CFG();
+  const out=cfg.inserts
+    ? ["TBR\tTPAD\t%\tWT\tPGS\tTHK\t",`${n2(T.tbrIn)}\t${n2(T.tpadIn)}\t${fmt(T.pctIn,2)}%\t${wtText(T.wtIn)}\t${T.n}\t${T.thk.toFixed(3)}\tIN`,`${n2(T.paper)}\t${n2(T.counted)}\t${fmt(T.pct,2)}%\t${wtText(T.wt)}\t${T.n}\t${T.thk.toFixed(3)}\tOUT`].join("\n")
+    : `${n2(T.paper)}\t${n2(T.counted)}\t${fmt(T.pct,2)}%\t${T.wt||""}\t${T.n}\t${T.thk.toFixed(3)}`;
+  copyText(out,"Bottom line copied. Paste it into Excel.");});
+$("printBtn").addEventListener("click",()=>{ $("printArea").innerHTML=opsToSvg(currentOps()); window.print(); });
+$("pdfBtn").addEventListener("click",()=>{
+  if(!window.jspdf){toast("The PDF maker didn't load. Check your internet connection and reload the page.");return;}
+  const cfg=CFG(), doc=opsToPdf(currentOps());
+  doc.setProperties({title:`${cfg.name} Daily Ad % ${usDate(P().plan.meta.repDate||todayISO(),4)}`});
+  const url=URL.createObjectURL(doc.output("blob")); const w=window.open(url,"_blank");
+  if(!w) toast("Your browser blocked the new tab. Allow pop-ups for this page, or use Print report.");
+});
+
+/* ===== Reading the thumbnails PDF ===== */
+// Reads one PDF page of a page-plan thumbnails report.
+// items: [{str,x,y,width}] (y up, baseline); boxes: [{x,y,w,h}] (y up, bottom-left).
+// opts: {depth, cols, classWords:[], excludeWords:[]}
+function analyzePage(items, boxes, opts){
+  const it = items.map(t=>({s:String(t.str).trim(), x:t.x, y:t.y, w:t.width||0})).filter(t=>t.s);
+  const text = it.map(t=>t.s).join(" ").replace(/\s+/g," ");
+  const meta = {}; const mm = text.match(/PRODUCT:\s*(.+?)\s+DATE:\s*(\S+)\s+PLAN:\s*(\S+)/);
+  if(mm){ meta.product=mm[1].trim(); meta.date=mm[2]; meta.plan=mm[3]; }
+  const recs=[]; const re=/(?<![A-Za-z])([A-Z]{1,2}\d{1,3})\s+(\d+(?:\.\d+)?)\s*in\b/g; let last=0, m;
+  while((m=re.exec(text))){
+    const label=text.slice(last,m.index).replace(/\d{1,2}\/\d{1,2}\/\d{2,4}.*?PLAN:\s*\S+/g," ")
+      .split(" ").filter(t=>t&&!/^\d+(\.\d+)?$/.test(t)).join(" ").trim();
+    last=re.lastIndex; recs.push({id:m[1], label, inches:parseFloat(m[2]), rop:parseFloat(m[2]), cls:0, fill:0, type:null});
+  }
+  const lower=s=>s.toLowerCase();
+  const hasWord=(s,ws)=>ws.some(w=>w&&lower(s).includes(lower(w)));
+  // Frames: each page thumbnail is an outlined box taller than it is wide.
+  const frames=[];
+  const cand=boxes.filter(b=>b.w>40&&b.w<140&&b.h/b.w>1.1&&b.h/b.w<2.4);
+  const within=(b,o)=>b!==o&&b.x>=o.x-0.1&&b.y>=o.y-0.1&&b.x+b.w<=o.x+o.w+0.1&&b.y+b.h<=o.y+o.h+0.1&&(o.w*o.h)>(b.w*b.h)*1.08;
+  cand.filter(b=>!cand.some(o=>within(b,o))).sort((a,b)=>a.w*a.h-b.w*b.h).forEach(b=>{
+    if(frames.some(g=>Math.abs(g.l-b.x)<2&&Math.abs(g.b-b.y)<2)) return;   // inner and outer outline of the same frame
+    const m=b.w*0.045, f={l:b.x, r:b.x+b.w, b:b.y, t:b.y+b.h};
+    f.liveW=b.w-2*m; f.liveH=b.h-2*m; f.colW=f.liveW/(opts.cols||6); f.scale=f.liveH/opts.depth;
+    f.numbered=0; f.excluded=0; f.narrow=0; f.clsNum=0; f.untagged=0; frames.push(f);
+  });
+  const inside=(f,x,y)=>x>=f.l-1&&x<=f.r+1&&y>=f.b-1&&y<=f.t+1;
+  // Numbered ads: an ad number like 78330.1, with its size printed under it or taken from its box.
+  it.filter(t=>/^\d{4,6}\.\d{1,3}$/.test(t.s)).forEach(ad=>{
+    const f=frames.find(f=>inside(f,ad.x,ad.y)); if(!f) return;
+    const below=it.filter(t=>t!==ad&&t.y<ad.y-0.5&&t.y>ad.y-34&&t.x>=ad.x-2&&t.x<=ad.x+f.colW*2.2)
+      .sort((a,b)=>(b.y-a.y)||(a.x-b.x));
+    const near=below.map(t=>t.s).join(" ");
+    let area=null; const sz=near.match(/(?:^|\s)(\d+(?:\.\d+)?)\s*x\s*(\d+(?:\.\d+)?)(?=\s|$)/i);
+    if(sz) area=parseFloat(sz[1])*parseFloat(sz[2]);
+    else{
+      const bx=boxes.filter(b=>ad.x>=b.x-1&&ad.x<=b.x+b.w&&ad.y>=b.y&&ad.y<=b.y+b.h+2&&b.w>=f.colW*0.6&&b.w<=f.liveW+2&&b.h>=1.5)
+        .sort((a,b)=>a.w*a.h-b.w*b.h)[0];
+      if(bx){ area=Math.max(1,Math.round(bx.w/f.colW))*(bx.h/f.scale); f.measured=true; }
+    }
+    if(area==null) return;
+    if(hasWord(near,opts.excludeWords||[])) f.excluded+=area;                 // e.g. death notices: not counted
+    else if(/[A-Z]{2,4}\s*[A-Z]\s+Section/.test(near)) f.numbered+=area;      // display ad booked to a section: ROP
+    else if(hasWord(near,opts.classAdWords||[])) f.clsNum+=area;             // obituaries, legals: Classified
+    else f.untagged=(f.untagged||0)+area;                                     // decided per page below
+  });
+  // Classified pages: a classified page header (Pro Con, Marketplace) inside the frame.
+  frames.forEach(f=>{
+    const inner=it.filter(t=>t.x>=f.l&&t.x<=f.r&&t.y>=f.b&&t.y<=f.t).map(t=>t.s).join(" ");
+    f.classHeader=hasWord(inner,opts.classHeaders||[]);
+    if(f.classHeader) f.clsNum+=f.untagged; else f.numbered+=f.untagged;
+  });
+  // Classified builds: several unlabeled boxes exactly one column wide.
+  frames.forEach(f=>{
+    f.narrow=boxes.filter(b=>b.w>=f.colW*0.75&&b.w<=f.colW*1.2&&b.h>=1.5&&b.x>=f.l&&b.x+b.w<=f.r&&b.y>=f.b&&b.y+b.h<=f.t).length;
+  });
+  // Each frame's page ID, booked inches and section name, found by position.
+  const r3=v=>Math.round(v*1000)/1000;
+  const posRecs=[];
+  frames.forEach(f=>{
+    const ids=it.filter(t=>/^[A-Z]{1,2}\d{1,3}$/.test(t.s)&&t.y<f.b&&f.b-t.y<16&&t.x>=f.l-25&&t.x<=f.r+25);
+    const id=ids.sort((a,b)=>Math.abs((a.x)-(f.l+f.r)/2)-Math.abs((b.x)-(f.l+f.r)/2))[0];
+    if(!id) return;
+    const under=it.filter(t=>t.y<id.y-2&&id.y-t.y<16&&Math.abs(t.x-id.x)<40).sort((a,b)=>Math.abs(a.x-id.x)-Math.abs(b.x-id.x));
+    let inches=null;
+    for(const t of under){ let mm=t.s.match(/^(\d+(?:\.\d+)?)\s*in$/);
+      if(mm){inches=parseFloat(mm[1]);break;}
+      if(/^\d+(?:\.\d+)?$/.test(t.s)&&it.some(u=>u.s==="in"&&Math.abs(u.y-t.y)<1&&u.x>t.x&&u.x-t.x<t.w+8)){inches=parseFloat(t.s);break;} }
+    if(inches==null) return;
+    const label=it.filter(t=>t.y>f.t-3&&t.y-f.t<12&&t.x>=f.l-6&&t.x<=f.r).sort((a,b)=>a.x-b.x).map(t=>t.s).join(" ");
+    posRecs.push({id:id.s,label,inches,rop:inches,cls:0,fill:0,type:null,_f:f});
+  });
+  const out = posRecs.length>=recs.length ? posRecs : recs;
+  out.forEach(p=>{
+    if(hasWord(p.label,opts.classWords||[])){ p.cls=p.inches; p.rop=0; return; }
+    let best=p._f;
+    if(!best){ const t=it.find(t=>t.s===p.id); if(!t) return; let bd=1e9;
+      frames.forEach(f=>{ if(t.y>f.b||f.b-t.y>16) return; const d=Math.abs((f.l+f.r)/2-t.x);
+        if(t.x>=f.l-25&&t.x<=f.r+25&&d<bd){bd=d;best=f;} }); }
+    if(!best) return;
+    const rop=Math.min(p.inches,best.numbered);
+    const cls=Math.min(p.inches-rop,best.clsNum);
+    const excl=Math.min(p.inches-rop-cls,best.excluded);
+    const left=r3(p.inches-rop-cls-excl);
+    p.rop=r3(rop); p.cls=r3(cls); p.fill=r3(excl);
+    if(left>0.05){
+      if(best.measured && left<=Math.max(1.5,p.inches*0.08)){ if(best.clsNum>best.numbered) p.cls=r3(p.cls+left); else p.rop=r3(p.rop+left); } // box-measuring error
+      else if(best.excluded>0) p.fill=r3(p.fill+left);                                   // e.g. death notices
+      else if(best.narrow>=3||best.classHeader) p.cls=r3(p.cls+left);                    // classified columns
+      else p.fill=r3(p.fill+left);                                                       // house ad or filler
+    } else if(left>0){ if(p.cls>p.rop) p.cls=r3(p.cls+left); else p.rop=r3(p.rop+left); }  // rounding
+  });
+  const seen=new Set(), recs2=out.filter(p=>{ delete p._f; if(seen.has(p.id)) return false; seen.add(p.id); return true; });
+  return {meta, recs:recs2};
+}
+
+async function pathBoxes(page){
+  const out=[];
+  try{
+    const ol=await page.getOperatorList(), O=pdfjsLib.OPS; let ctm=[1,0,0,1,0,0]; const stack=[];
+    const mul=(m,n)=>[m[0]*n[0]+m[2]*n[1],m[1]*n[0]+m[3]*n[1],m[0]*n[2]+m[2]*n[3],m[1]*n[2]+m[3]*n[3],m[0]*n[4]+m[2]*n[5]+m[4],m[1]*n[4]+m[3]*n[5]+m[5]];
+    const pt=(x,y)=>[ctm[0]*x+ctm[2]*y+ctm[4],ctm[1]*x+ctm[3]*y+ctm[5]];
+    const add=(x0,y0,x1,y1)=>{ if(![x0,y0,x1,y1].every(Number.isFinite)) return;
+      const c=[pt(x0,y0),pt(x1,y0),pt(x0,y1),pt(x1,y1)], xs=c.map(q=>q[0]), ys=c.map(q=>q[1]);
+      const x=Math.min(...xs), y=Math.min(...ys); out.push({x,y,w:Math.max(...xs)-x,h:Math.max(...ys)-y}); };
+    for(let i=0;i<ol.fnArray.length;i++){
+      const fn=ol.fnArray[i], a=ol.argsArray[i];
+      if(fn===O.save) stack.push(ctm.slice());
+      else if(fn===O.restore) ctm=stack.pop()||[1,0,0,1,0,0];
+      else if(fn===O.transform) ctm=mul(ctm,a);
+      else if(fn===O.paintFormXObjectBegin){ stack.push(ctm.slice()); if(a&&a[0]) ctm=mul(ctm,a[0]); }
+      else if(fn===O.paintFormXObjectEnd) ctm=stack.pop()||[1,0,0,1,0,0];
+      else if(fn===O.constructPath){ const [ops,coords,mm]=a;
+        if(ops.length===1&&ops[0]===O.rectangle){const [x,y,w,h]=coords; add(Math.min(x,x+w),Math.min(y,y+h),Math.max(x,x+w),Math.max(y,y+h));}
+        else if(mm&&mm.length===4) add(mm[0],mm[1],mm[2],mm[3]); }
+    }
+  }catch(e){}
+  return out;
+}
+async function readPdf(file){
+  const status=$("status"); status.className="status"; status.textContent=`Reading ${file.name}…`;
+  try{
+    if(!window.pdfjsLib) throw new Error("The PDF reader didn't load. Check your internet connection and reload the page.");
+    pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+    const doc=await pdfjsLib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
+    // Work out the publication first, from the report footer.
+    let meta={}, pagesRaw=[];
+    for(let n=1;n<=doc.numPages;n++){
+      const pg=await doc.getPage(n), tc=await pg.getTextContent();
+      const items=tc.items.map(t=>({str:t.str,x:t.transform[4],y:t.transform[5],width:t.width}));
+      pagesRaw.push({items,boxes:await pathBoxes(pg)});
+      if(!meta.product){const mm=items.map(t=>t.str).join(" ").replace(/\s+/g," ").match(/PRODUCT:\s*(.+?)\s+DATE:\s*(\S+)\s+PLAN:\s*(\S+)/); if(mm) meta={product:mm[1].trim(),date:mm[2],plan:mm[3]};}
+    }
+    const code=Object.keys(PAPERS).find(c=>PAPERS[c].match.test(meta.product||""))
+      || Object.keys(PAPERS).find(c=>new RegExp("(^|[^a-z])"+c.toLowerCase()+"([^a-z]|$)","i").test(file.name)) || S.active;
+    const st=S.papers[code], cfg=PAPERS[code];
+    const opts={depth:cfg.depth,cols:6,classWords:words(st.settings.kw),excludeWords:words(st.settings.ex),classAdWords:words(st.settings.cw),classHeaders:words(st.settings.ch)};
+    const seen=new Set(), pages=[];
+    pagesRaw.forEach(pr=>{ analyzePage(pr.items,pr.boxes,opts).recs.forEach(p=>{ if(!seen.has(p.id)){seen.add(p.id);pages.push(p);} }); });
+    if(!pages.length) throw new Error("No pages with booked inches were found. Make sure this is a page-plan thumbnails PDF.");
+    pages.sort((a,b)=>{const [,sa,na]=a.id.match(/([A-Z]+)(\d+)/),[,sb,nb]=b.id.match(/([A-Z]+)(\d+)/);return sa===sb?na-nb:sa.localeCompare(sb)});
+    st.plan={meta:Object.assign(meta,{file:file.name,repDate:todayISO()}),pages};
+    if(cfg.inserts){ st.inserts=st.inserts.filter(r=>!r.temp); st.inserts.forEach(r=>r.pgs=0); }
+    S.active=code; save(); render();
+    status.textContent=`Loaded ${pages.length} pages of ${cfg.name} from ${file.name}.`+(cfg.inserts?" Enter today's insert pages in the report details.":"");
+  }catch(err){ status.className="status err"; status.textContent=err.message||"Couldn't read that PDF."; }
+}
+$("file").addEventListener("change",e=>{ if(e.target.files[0]) readPdf(e.target.files[0]); e.target.value=""; });
+const drop=$("drop");
+["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("over")}));
+["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove("over")}));
+drop.addEventListener("drop",e=>{const f=e.dataTransfer.files[0]; if(f) readPdf(f);});
+
+// Reads an insert schedule (rows copied from Excel, or text read from a screenshot)
+// and returns [{name, pages}] for each insert row.
+function parseSchedule(text){
+  const out=[];
+  const lines=String(text||"").split(/\r?\n/).map(l=>l.replace(/ /g," ")).filter(l=>l.trim());
+  let nameCol=-1, pageCol=-1;
+  for(const line of lines){
+    const cells=line.split("\t").map(c=>c.trim());
+    if(cells.length>2){
+      const low=cells.map(c=>c.toLowerCase());
+      const ni=low.findIndex(c=>/insert\s*\/\s*section|^insert$|section/.test(c)), pi=low.findIndex(c=>/page\s*count|^pages?$/.test(c));
+      if(ni>=0&&pi>=0){nameCol=ni;pageCol=pi;continue;}
+      if(nameCol>=0){
+        const name=cells[nameCol]||"", pm=String(cells[pageCol]||"").match(/^\s*(\d+)/);
+        if(/[a-z]/i.test(name)) out.push({name,pages:pm?+pm[1]:0});
+        continue;
+      }
+    }
+    // Free text (a screenshot, or copied cells without the header row)
+    let t=" "+cells.join(" ")+" ";
+    if(/insert\s*day|page\s*count|cortez journal inserts/i.test(t)) continue;
+    t=t.replace(/\b(mon|tues|wednes|thurs|fri|satur|sun)day\b/ig," ");
+    const dates=[...t.matchAll(/\d{1,2}\/\d{1,2}\/\d{2,4}/g)];
+    const afterLast=dates.length? t.slice(dates[dates.length-1].index+dates[dates.length-1][0].length) : "";
+    const qty=t.match(/\s(\d{1,3}(?:,\d{3})+|\d{4,6})\s/);
+    let name=t.replace(/\d{1,2}\/\d{1,2}\/\d{2,4}/g," ");
+    if(qty) name=name.slice(0,name.indexOf(qty[1]));
+    name=name.replace(/\s+/g," ").trim();
+    if(!/[a-z]{3}/i.test(name)) continue;
+    const pm=afterLast.match(/(?:^|\s)(\d{1,3})(?=\s|\+|$)/);
+    out.push({name,pages:pm?+pm[1]:0});
+  }
+  return out;
+}
+// Matches schedule rows to the saved insert list by name.
+function matchInserts(rows, inserts){
+  const norm=s=>String(s||"").toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+  const names=[...new Set(inserts.map(r=>r.name))];
+  return rows.map(r=>{
+    const n=" "+norm(r.name)+" ";
+    let hit=names.find(x=>n.includes(" "+norm(x)+" "));
+    if(!hit) hit=names.find(x=>norm(x).split(" ").filter(w=>w.length>=4).some(w=>n.includes(" "+w+" ")));
+    return {name:r.name,pages:r.pages,match:hit||""};
+  });
+}
+
+let SNIP=null;
+const snipStatus=(msg,err)=>{const e=$("snipStatus");e.textContent=msg||"";e.style.color=err?"var(--err)":"";};
+function showSnip(rows){
+  if(!rows.length){SNIP=null;$("snipResult").innerHTML="";snipStatus("No insert rows were found. Copy the rows that have an insert name and a page count, then try again.",true);return;}
+  SNIP=rows; const names=[...new Set(P().inserts.map(r=>r.name))];
+  snipStatus(`Found ${rows.length} insert${rows.length===1?"":"s"}. Check the matches, then click Apply.`);
+  $("snipResult").innerHTML=`<table><thead><tr><th>On the schedule</th><th>Your insert</th><th>Pgs</th></tr></thead><tbody>${rows.map((r,i)=>`<tr>
+    <td class="nm" title="${esc(r.name)}">${esc(r.name)}</td>
+    <td><select id="snipm-${i}" data-s="${i}" aria-label="Match for ${esc(r.name)}">${names.map(n=>`<option${n===r.match?" selected":""}>${esc(n)}</option>`).join("")}
+      <option value="__new"${r.match?"":" selected"}>Add as a new insert</option><option value="__skip">Skip</option></select></td>
+    <td><input type="number" id="snipp-${i}" data-s="${i}" min="0" step="1" value="${r.pages}" aria-label="Pages for ${esc(r.name)}"></td></tr>`).join("")}</tbody></table>
+    <div class="row" style="margin-top:8px"><button type="button" class="primary small" id="snipApply">Apply to inserts</button><button type="button" class="small" id="snipCancel">Cancel</button></div>`;
+}
+function applySnip(){
+  if(!SNIP) return; const st=P(); st.inserts=st.inserts.filter(r=>!r.temp); const ins=st.inserts; ins.forEach(r=>r.pgs=0); let added=0;
+  SNIP.forEach((r,i)=>{ const m=$("snipm-"+i).value, pg=Math.max(0,parseInt($("snipp-"+i).value,10)||0);
+    if(m==="__skip") return;
+    if(m==="__new"){ ins.push({name:r.name.split(/\s+-\s+/)[0].slice(0,40),h:0,w:0,pgs:pg,temp:true}); added++; return; }
+    const first=ins.find(x=>x.name===m); if(first) first.pgs=(+first.pgs||0)+pg; });
+  SNIP=null; $("snipResult").innerHTML="";
+  snipStatus(added?`Inserts updated. Enter the height and width for the ${added} new insert${added===1?"":"s"} in the list below. ${added===1?"It's":"They're"} for this week only and will drop off when next week's schedule or plan is loaded.`:"Inserts updated. All other inserts are set to 0 pages.");
+  save(); render();
+}
+$("snip").addEventListener("click",e=>{ if(e.target.id==="snipApply") applySnip(); else if(e.target.id==="snipCancel"){SNIP=null;$("snipResult").innerHTML="";snipStatus("");} });
+const loadScript=src=>new Promise((ok,bad)=>{const s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=()=>bad(new Error("load"));document.head.appendChild(s);});
+async function readSnipImage(file){
+  snipStatus("Reading the screenshot. This can take up to a minute the first time…"); $("snipResult").innerHTML="";
+  try{
+    if(!window.Tesseract) await loadScript("https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js");
+    const img=await createImageBitmap(file), c=document.createElement("canvas"), k=img.width<1600?2:1;
+    c.width=img.width*k; c.height=img.height*k; const g=c.getContext("2d"); g.imageSmoothingQuality="high"; g.drawImage(img,0,0,c.width,c.height);
+    const worker=await Tesseract.createWorker("eng"); const {data}=await worker.recognize(c); await worker.terminate();
+    showSnip(matchInserts(parseSchedule(data.text),P().inserts));
+  }catch(e){ snipStatus("The screenshot couldn't be read. Check your internet connection, or copy the rows from the spreadsheet and paste them instead.",true); }
+}
+document.addEventListener("paste",e=>{
+  if(!CFG().inserts) return;
+  const t=e.target, inSnip=t&&t.closest&&t.closest("#snip");
+  if(!inSnip&&t&&/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+  const files=[...(e.clipboardData?.files||[])].filter(f=>/^image\//.test(f.type));
+  if(files.length){ e.preventDefault(); readSnipImage(files[0]); $("snip").scrollIntoView({block:"nearest"}); return; }
+  const text=e.clipboardData?.getData("text/plain")||"";
+  if(!text.trim()) return;
+  const rows=parseSchedule(text);
+  if(rows.length||inSnip){ e.preventDefault(); showSnip(matchInserts(rows,P().inserts)); $("snip").scrollIntoView({block:"nearest"}); }
+});
+$("snipFile").addEventListener("change",e=>{ if(e.target.files[0]) readSnipImage(e.target.files[0]); e.target.value=""; });
+const snipEl=$("snip");
+["dragenter","dragover"].forEach(ev=>snipEl.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();snipEl.classList.add("over")}));
+["dragleave","drop"].forEach(ev=>snipEl.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();snipEl.classList.remove("over")}));
+snipEl.addEventListener("drop",e=>{const f=[...e.dataTransfer.files].find(f=>/^image\//.test(f.type)); if(f) readSnipImage(f); else { const t=e.dataTransfer.getData("text/plain"); if(t) showSnip(matchInserts(parseSchedule(t),P().inserts)); }});
+
+render();
+</script>
+</body>
+</html>
