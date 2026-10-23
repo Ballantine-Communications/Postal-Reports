@@ -117,11 +117,20 @@ details summary{cursor:pointer;font-weight:600;font-size:14px}
 .snip td.nm{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .snip select{font:inherit;font-size:13px;padding:3px 6px;border:1px solid var(--rule);border-radius:4px;background:var(--sheet);color:var(--ink);max-width:170px}
 .snip input[type=number]{width:64px;padding:4px 6px;font-size:13px}
+.ready{position:fixed;left:0;right:0;top:0;z-index:20;padding:12px 16px;background:var(--ink);color:var(--paper);box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.ready-in{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:space-between}
+.ready-msg{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ready-msg b{font-size:16px}
+.ready-msg span{font-size:13px;opacity:.8}
+.ready-msg span:empty{display:none}
+.ready button{background:transparent;color:var(--paper);border-color:rgba(255,255,255,.4)}
+.ready button.primary{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+@media (prefers-reduced-motion:no-preference){.ready{animation:drop .25s ease-out}@keyframes drop{from{transform:translateY(-100%)}to{transform:none}}}
 #printArea{display:none}
 @media print{
   @page{size:letter;margin:0}
   html,body{background:#fff!important}
-  .wrap,.toast{display:none!important}
+  .wrap,.toast,.ready{display:none!important}
   #printArea{display:block}
   #printArea svg{display:block;width:8.5in;height:11in}
 }
@@ -223,6 +232,12 @@ details summary{cursor:pointer;font-weight:600;font-size:14px}
       <tbody id="rows"></tbody>
     </table></div>
   </section>
+</div>
+<div class="ready" id="ready" role="status" hidden>
+  <div class="ready-in">
+    <div class="ready-msg"><b id="readyTitle"></b><span id="readySub"></span></div>
+    <div class="actions"><button type="button" class="primary" id="readyPrint">Print report</button><button type="button" id="readyPdf">Open as PDF</button><button type="button" id="readyClose" aria-label="Dismiss">Dismiss</button></div>
+  </div>
 </div>
 <div class="toast" id="toast" hidden></div>
 <div id="printArea" aria-hidden="true"></div>
@@ -630,8 +645,8 @@ async function readPdf(file){
     if(!pages.length) throw new Error("No pages with booked inches were found. Make sure this is a page-plan thumbnails PDF.");
     pages.sort((a,b)=>{const [,sa,na]=a.id.match(/([A-Z]+)(\d+)/),[,sb,nb]=b.id.match(/([A-Z]+)(\d+)/);return sa===sb?na-nb:sa.localeCompare(sb)});
     st.plan={meta:Object.assign(meta,{file:file.name,repDate:todayISO()}),pages};
-    if(cfg.inserts){ st.inserts=st.inserts.filter(r=>!r.temp); st.inserts.forEach(r=>r.pgs=0); }
-    S.active=code; save(); render();
+    if(cfg.inserts){ if(st.schedPending){ st.plan.insertsDone=true; } else { st.inserts=st.inserts.filter(r=>!r.temp); st.inserts.forEach(r=>r.pgs=0); } st.schedPending=false; }
+    S.active=code; st.readyPending=false; save(); render(); checkReady();
     status.textContent=`Loaded ${pages.length} pages of ${cfg.name} from ${file.name}.`+(cfg.inserts?" Enter today's insert pages in the report details.":"");
   }catch(err){ status.className="status err"; status.textContent=err.message||"Couldn't read that PDF."; }
 }
@@ -707,8 +722,9 @@ function applySnip(){
     if(m==="__new"){ ins.push({name:r.name.split(/\s+-\s+/)[0].slice(0,40),h:0,w:0,pgs:pg,temp:true}); added++; return; }
     const first=ins.find(x=>x.name===m); if(first) first.pgs=(+first.pgs||0)+pg; });
   SNIP=null; $("snipResult").innerHTML="";
+  if(!st.plan.example&&!st.plan.insertsDone){ st.plan.insertsDone=true; st.schedPending=false; } else st.schedPending=true;
   snipStatus(added?`Inserts updated. Enter the height and width for the ${added} new insert${added===1?"":"s"} in the list below. ${added===1?"It's":"They're"} for this week only and will drop off when next week's schedule or plan is loaded.`:"Inserts updated. All other inserts are set to 0 pages.");
-  save(); render();
+  save(); render(); checkReady();
 }
 $("snip").addEventListener("click",e=>{ if(e.target.id==="snipApply") applySnip(); else if(e.target.id==="snipCancel"){SNIP=null;$("snipResult").innerHTML="";snipStatus("");} });
 const loadScript=src=>new Promise((ok,bad)=>{const s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=()=>bad(new Error("load"));document.head.appendChild(s);});
@@ -739,7 +755,41 @@ const snipEl=$("snip");
 ["dragleave","drop"].forEach(ev=>snipEl.addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();snipEl.classList.remove("over")}));
 snipEl.addEventListener("drop",e=>{const f=[...e.dataTransfer.files].find(f=>/^image\//.test(f.type)); if(f) readSnipImage(f); else { const t=e.dataTransfer.getData("text/plain"); if(t) showSnip(matchInserts(parseSchedule(t),P().inserts)); }});
 
+
+/* ===== "Report ready" banner ===== */
+function checkReady(){
+  const st=P(), cfg=CFG();
+  if(st.plan.example&&!(cfg.inserts&&st.schedPending)){ return; }
+  if(cfg.inserts&&st.schedPending){ $("ready").hidden=true; toast("Insert schedule saved. Load this week's TJ plan to finish the report."); return; }
+  if(cfg.inserts&&!st.plan.insertsDone){ toast("Plan loaded. Paste this week's insert schedule to finish the TJ report."); return; }
+  const T=totals(), date=usDate(st.plan.meta.repDate||todayISO(),4);
+  const issue=(st.plan.meta.date||usDate(st.plan.meta.repDate||todayISO(),2));
+  $("readyTitle").textContent=`${cfg.code} Postal Report ${issue} is ready`;
+  $("readySub").textContent="";
+  $("ready").hidden=false; $("ready").dataset.p=S.active;
+  if(!st.readyPending){ st.readyPending=true; save(); }
+}
+// A ready report stays announced, even after the page is closed, until it is opened, printed or dismissed.
+function clearReady(){
+  const code=$("ready").dataset.p; if(code&&S.papers[code]){ S.papers[code].readyPending=false; save(); }
+  $("ready").hidden=true; setTimeout(showPending,300);
+}
+function showPending(){
+  const code=Object.keys(PAPERS).find(c=>S.papers[c].readyPending); if(!code) return;
+  if(S.active!==code){ S.active=code; save(); render(); }
+  checkReady();
+}
+$("readyPrint").addEventListener("click",()=>{ const c=$("ready").dataset.p; if(c&&c!==S.active){S.active=c;render();} $("printBtn").click(); clearReady(); });
+$("readyPdf").addEventListener("click",()=>{ const c=$("ready").dataset.p; if(c&&c!==S.active){S.active=c;render();} $("pdfBtn").click(); clearReady(); });
+$("readyClose").addEventListener("click",clearReady);
+$("printBtn").addEventListener("click",()=>{ if(P().readyPending){ P().readyPending=false; save(); if($("ready").dataset.p===S.active){$("ready").hidden=true;} } });
+$("pdfBtn").addEventListener("click",()=>{ if(P().readyPending){ P().readyPending=false; save(); if($("ready").dataset.p===S.active){$("ready").hidden=true;} } });
+$("tabs").addEventListener("click",()=>{ $("ready").hidden=true; if(P().readyPending) checkReady(); });
+
+
+
 render();
+showPending();
 </script>
 </body>
 </html>
