@@ -36,7 +36,12 @@ button.small{font-size:12px;padding:4px 10px}
 .actions{display:flex;gap:8px;flex-wrap:wrap}
 .tabs{display:flex;gap:6px;flex-wrap:wrap}
 .tabs button{min-width:64px}
-.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tabs button{border:2px solid transparent;opacity:.6;transition:opacity .15s}
+.tabs button:hover{opacity:.85;border-color:transparent}
+.tabs button[data-p="TCR"]{background:#0096a0;color:#fff}
+.tabs button[data-p="DH"]{background:#c8102e;color:#fff}
+.tabs button[data-p="TJ"]{background:#ffd200;color:#000}
+.tabs button[aria-pressed="true"]{opacity:1;box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--ink)}
 .drop{border:1.5px dashed var(--rule);border-radius:8px;padding:16px 18px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;background:var(--sheet)}
 .drop.over{border-color:var(--rop);background:var(--rop-soft)}
 .drop p{margin:0;color:var(--muted);flex:1 1 280px;min-width:0}
