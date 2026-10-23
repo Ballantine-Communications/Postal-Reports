@@ -237,6 +237,7 @@ details summary{cursor:pointer;font-weight:600;font-size:14px}
       <tbody id="rows"></tbody>
     </table></div>
   </section>
+  <p class="note" style="text-align:center">Version 10/23/26 3:00 PM</p>
 </div>
 <div class="ready" id="ready" role="status" hidden>
   <div class="ready-in">
@@ -273,17 +274,17 @@ const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){retu
 const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
 function samplePlan(code){
   const s=SAMPLES[code], m=Object.assign({},s.meta,{file:"Example plan"});
-  const ex={TCR:{repDate:"2026-10-23"},DH:{repDate:"2026-10-26"},TJ:{repDate:"2026-10-21",weightIn:5.2}}[code]||{};
+  const ex={TCR:{repDate:"2026-10-26"},DH:{repDate:"2026-10-26"},TJ:{repDate:"2026-10-21",weightIn:5.2}}[code]||{};
   return {meta:Object.assign(m,ex), example:true, pages:s.pages.map(([id,label,inches,rop,cls,fill])=>({id,label,inches,rop,cls,fill,type:null}))};
 }
 function freshPaper(code){
   return {plan:samplePlan(code), settings:{perPage:PAPERS[code].perPage, kw:"Class", ex:"Death Notice", cw:"Obituar, Memoriam, Legal Notice", ch:"Pro Con, Marketplace", div:1.708},
           inserts: code==="TJ" ? DEFAULT_INSERTS.map(([name,h,w],i)=>({name,h,w,pgs:code==="TJ"&&name==="Safeway"&&i===2?4:(name==="Dollar General"?8:0)})) : []};
 }
-let S=store.get("dailyad.v2")||{active:"TCR",papers:{}};
+let S=store.get("dailyad.v3")||{active:"TCR",papers:{}};
 Object.keys(PAPERS).forEach(c=>{ if(!S.papers[c]) S.papers[c]=freshPaper(c); });
 const P=()=>S.papers[S.active], CFG=()=>PAPERS[S.active];
-function save(){store.set("dailyad.v2",S)}
+function save(){store.set("dailyad.v3",S)}
 
 /* ===== Numbers ===== */
 const r3=v=>Math.round(v*1000)/1000;
@@ -314,6 +315,7 @@ function totals(){
     insertsIn,div,tm,tpadIn,tbrIn,pctIn:tbrIn?tpadIn/tbrIn*100:0,wt,wtIn,thk:n*0.006};
 }
 const wtText=v=>v?`${v.toFixed(1)}=${+(v/16).toFixed(4)}`:"";
+const issueISO=d=>{const m=String(d||"").match(/^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4})$/); if(!m) return ""; const y=m[3].length===2?"20"+m[3]:m[3]; return `${y}-${m[1].padStart(2,"0")}-${m[2].padStart(2,"0")}`;};
 const usDate=(iso,year)=>{const m=String(iso||"").match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?`${m[2]}/${m[3]}/${year===4?m[1]:m[1].slice(2)}`:""};
 
 /* ===== Report layout (US Letter, points, y from top) ===== */
@@ -649,7 +651,7 @@ async function readPdf(file){
     pagesRaw.forEach(pr=>{ analyzePage(pr.items,pr.boxes,opts).recs.forEach(p=>{ if(!seen.has(p.id)){seen.add(p.id);pages.push(p);} }); });
     if(!pages.length) throw new Error("No pages with booked inches were found. Make sure this is a page-plan thumbnails PDF.");
     pages.sort((a,b)=>{const [,sa,na]=a.id.match(/([A-Z]+)(\d+)/),[,sb,nb]=b.id.match(/([A-Z]+)(\d+)/);return sa===sb?na-nb:sa.localeCompare(sb)});
-    st.plan={meta:Object.assign(meta,{file:file.name,repDate:todayISO()}),pages};
+    st.plan={meta:Object.assign(meta,{file:file.name,repDate:issueISO(meta.date)||todayISO()}),pages};
     if(cfg.inserts){ if(st.schedPending){ st.plan.insertsDone=true; } else { st.inserts=st.inserts.filter(r=>!r.temp); st.inserts.forEach(r=>r.pgs=0); } st.schedPending=false; }
     S.active=code; st.readyPending=false; save(); render(); checkReady();
     status.textContent=`Loaded ${pages.length} pages of ${cfg.name} from ${file.name}.`+(cfg.inserts?" Enter today's insert pages in the report details.":"");
