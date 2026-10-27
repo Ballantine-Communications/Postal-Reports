@@ -131,6 +131,9 @@ details summary{cursor:pointer;font-weight:600;font-size:14px}
 .ready button{background:transparent;color:var(--paper);border-color:rgba(255,255,255,.4)}
 .ready button.primary{background:var(--paper);color:var(--ink);border-color:var(--paper)}
 @media (prefers-reduced-motion:no-preference){.ready{animation:drop .25s ease-out}@keyframes drop{from{transform:translateY(-100%)}to{transform:none}}}
+.team{font-size:13px;color:var(--muted);margin-top:4px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.team.err{color:var(--err)}
+button.link{background:none;border:0;padding:0;color:var(--rop);text-decoration:underline;font-size:13px;font-weight:600}
 #printArea{display:none}
 @media print{
   @page{size:letter;margin:0}
@@ -147,6 +150,7 @@ details summary{cursor:pointer;font-weight:600;font-size:14px}
     <div>
       <h1>Daily Ad % Tally</h1>
       <div class="plan" id="planLine"></div>
+      <div class="team" id="teamLine"><span id="teamText"></span> <button type="button" class="link" id="teamRefresh" hidden>Check for new reports</button></div>
     </div>
     <div class="tabs" role="group" aria-label="Publication" id="tabs">
       <button type="button" data-p="TCR">TCR</button>
@@ -209,6 +213,22 @@ details summary{cursor:pointer;font-weight:600;font-size:14px}
   </section>
 
   <section>
+    <details id="teamBox">
+      <summary>Team sharing</summary>
+      <div class="panel" style="margin-top:14px;max-width:760px">
+        <p class="note" id="teamStatus"></p>
+        <div id="tokWrap" class="row">
+          <label class="f" for="tokIn">Publishing key<input id="tokIn" class="wide" type="password" autocomplete="off" placeholder="github_pat_…"></label>
+          <button type="button" class="primary" id="tokSave">Connect this computer</button>
+        </div>
+        <div class="row"><button type="button" id="tokOff" hidden>Stop publishing from this computer</button></div>
+        <p class="note" id="tokMsg" aria-live="polite"></p>
+        <p class="note">Only the computer that enters the data needs a publishing key. Everyone else just opens the link. The key is kept in this browser only and is never saved in the page.</p>
+      </div>
+    </details>
+  </section>
+
+  <section>
     <details id="setBox">
       <summary>Settings for <span id="setName"></span></summary>
       <div class="settings" style="margin-top:14px">
@@ -237,7 +257,7 @@ details summary{cursor:pointer;font-weight:600;font-size:14px}
       <tbody id="rows"></tbody>
     </table></div>
   </section>
-  <p class="note" style="text-align:center">Version 10/23/26 3:00 PM</p>
+  <p class="note" style="text-align:center">Version 10/27/26 2:30 PM</p>
 </div>
 <div class="ready" id="ready" role="status" hidden>
   <div class="ready-in">
@@ -284,7 +304,7 @@ function freshPaper(code){
 let S=store.get("dailyad.v3")||{active:"TCR",papers:{}};
 Object.keys(PAPERS).forEach(c=>{ if(!S.papers[c]) S.papers[c]=freshPaper(c); });
 const P=()=>S.papers[S.active], CFG=()=>PAPERS[S.active];
-function save(){store.set("dailyad.v3",S)}
+function save(){store.set("dailyad.v3",S); if(typeof schedulePublish==="function"&&TOKEN&&Object.keys(PAPERS).some(c=>!S.papers[c].plan.example&&sigOf(c)!==S.papers[c].syncedSig)) schedulePublish();}
 
 /* ===== Numbers ===== */
 const r3=v=>Math.round(v*1000)/1000;
@@ -778,7 +798,7 @@ function checkReady(){
 }
 // A ready report stays announced, even after the page is closed, until it is opened, printed or dismissed.
 function clearReady(){
-  const code=$("ready").dataset.p; if(code&&S.papers[code]){ S.papers[code].readyPending=false; save(); }
+  const code=$("ready").dataset.p; if(code&&S.papers[code]){ S.papers[code].readyPending=false; markSeen(code); save(); }
   $("ready").hidden=true; setTimeout(showPending,300);
 }
 function showPending(){
@@ -789,14 +809,140 @@ function showPending(){
 $("readyPrint").addEventListener("click",()=>{ const c=$("ready").dataset.p; if(c&&c!==S.active){S.active=c;render();} $("printBtn").click(); clearReady(); });
 $("readyPdf").addEventListener("click",()=>{ const c=$("ready").dataset.p; if(c&&c!==S.active){S.active=c;render();} $("pdfBtn").click(); clearReady(); });
 $("readyClose").addEventListener("click",clearReady);
-$("printBtn").addEventListener("click",()=>{ if(P().readyPending){ P().readyPending=false; save(); if($("ready").dataset.p===S.active){$("ready").hidden=true;} } });
-$("pdfBtn").addEventListener("click",()=>{ if(P().readyPending){ P().readyPending=false; save(); if($("ready").dataset.p===S.active){$("ready").hidden=true;} } });
+$("printBtn").addEventListener("click",()=>{ if(P().readyPending){ P().readyPending=false; markSeen(S.active); save(); if($("ready").dataset.p===S.active){$("ready").hidden=true;} } });
+$("pdfBtn").addEventListener("click",()=>{ if(P().readyPending){ P().readyPending=false; markSeen(S.active); save(); if($("ready").dataset.p===S.active){$("ready").hidden=true;} } });
 $("tabs").addEventListener("click",()=>{ $("ready").hidden=true; if(P().readyPending) checkReady(); });
 
 
 
+/* ===== Team sharing: finished reports are saved to reports.json in the GitHub repository ===== */
+const TEAM_FILE="reports.json";
+var TOKEN=null; try{ TOKEN=localStorage.getItem("dailyad.token")||null; }catch(e){}
+var SEEN=store.get("dailyad.seen")||{};
+var TEAM={state:"idle", msg:"", at:null};
+function repoInfo(){
+  const saved=store.get("dailyad.repo"); if(saved&&saved.owner&&saved.repo) return saved;
+  const h=location.hostname.match(/^([^.]+)\.github\.io$/i); if(!h) return null;
+  const seg=location.pathname.split("/").filter(Boolean)[0];
+  return {owner:h[1], repo:(seg&&!/\.html?$/i.test(seg))?seg:`${h[1]}.github.io`};
+}
+const b64enc=str=>btoa(unescape(encodeURIComponent(str)));
+const b64dec=b=>decodeURIComponent(escape(atob(String(b).replace(/\s/g,""))));
+function hashStr(s){ let h=5381; for(let i=0;i<s.length;i++) h=((h<<5)+h+s.charCodeAt(i))|0; return String(h>>>0); }
+const shareable=c=>{ const p=S.papers[c]; return {plan:p.plan, inserts:p.inserts, settings:p.settings}; };
+const sigOf=c=>hashStr(JSON.stringify(shareable(c)));
+const reportId=c=>{ const m=S.papers[c].plan.meta||{}; return `${c}:${m.plan||m.date||""}`; };
+const isReady=c=>{ const p=S.papers[c]; return !p.plan.example && (!PAPERS[c].inserts || !!p.plan.insertsDone); };
+function markSeen(c){ if(!c||!S.papers[c]) return; SEEN[reportId(c)]=Date.now(); store.set("dailyad.seen",SEEN); }
+const fmtWhen=iso=>{ if(!iso) return ""; const d=new Date(iso); return d.toLocaleString(undefined,{month:"numeric",day:"numeric",hour:"numeric",minute:"2-digit"}); };
+function apiUrl(r){ return `https://api.github.com/repos/${r.owner}/${r.repo}/contents/${TEAM_FILE}`; }
+function apiHeaders(withToken){ const h={"Accept":"application/vnd.github+json"}; if(withToken&&TOKEN) h.Authorization="Bearer "+TOKEN; return h; }
+
+// Read the team copy.
+async function fetchTeam(){
+  const r=repoInfo(); if(!r) return null;
+  try{
+    const res=await fetch(apiUrl(r)+"?t="+Date.now(),{headers:apiHeaders(true),cache:"no-store"});
+    if(res.status===404) return {doc:{papers:{}},sha:null};
+    if(res.ok){ const j=await res.json(); return {doc:JSON.parse(b64dec(j.content)),sha:j.sha}; }
+  }catch(e){}
+  try{ // GitHub's API limits how often one office can ask; fall back to the published file.
+    const res=await fetch(TEAM_FILE+"?t="+Date.now(),{cache:"no-store"});
+    if(res.ok) return {doc:await res.json(),sha:null};
+  }catch(e){}
+  return null;
+}
+// Use any team report that is newer than what this computer has.
+async function pullTeam(quiet){
+  const got=await fetchTeam(); if(!got){ if(!quiet){ TEAM={state:"error",msg:"Couldn't reach the team reports. Check your internet connection.",at:null}; renderTeam(); } return; }
+  let changed=false, latest=TEAM.at;
+  Object.entries(got.doc.papers||{}).forEach(([c,sp])=>{
+    if(!S.papers[c]||!sp||!sp.plan) return;
+    const p=S.papers[c];
+    if(!latest||sp.publishedAt>latest) latest=sp.publishedAt;
+    if(p.publishedAt&&sp.publishedAt<=p.publishedAt) return;          // already have it
+    if(TOKEN&&p.syncedSig&&sigOf(c)!==p.syncedSig) return;            // editor's own unpublished changes win
+    p.plan=sp.plan; p.inserts=sp.inserts||p.inserts; p.settings=Object.assign({},p.settings,sp.settings||{});
+    p.publishedAt=sp.publishedAt; p.syncedSig=sigOf(c); p.schedPending=false;
+    p.readyPending=!!sp.ready && !SEEN[sp.id];
+    changed=true;
+  });
+  if(TEAM.state!=="error"||!quiet) TEAM={state:"ok",msg:"",at:latest};
+  if(changed){ store.set("dailyad.v3",S); render(); showPending(); } else renderTeam();
+}
+// Save this computer's finished reports to the team copy.
+var pubTimer=null, publishing=false;
+function schedulePublish(){ if(!TOKEN||!repoInfo()) return; clearTimeout(pubTimer); pubTimer=setTimeout(publishTeam,4000); TEAM={state:"waiting",msg:"",at:TEAM.at}; renderTeam(); }
+async function publishTeam(tries=0){
+  const r=repoInfo(); if(!TOKEN||!r) return;
+  if(publishing){ schedulePublish(); return; }
+  const dirty=Object.keys(PAPERS).filter(c=>!S.papers[c].plan.example&&sigOf(c)!==S.papers[c].syncedSig);
+  if(!dirty.length){ TEAM={state:"ok",msg:"",at:TEAM.at}; renderTeam(); return; }
+  publishing=true; TEAM={state:"busy",msg:"",at:TEAM.at}; renderTeam();
+  try{
+    const res0=await fetch(apiUrl(r)+"?t="+Date.now(),{headers:apiHeaders(true),cache:"no-store"});
+    let doc={papers:{}}, sha=null;
+    if(res0.ok){ const j=await res0.json(); sha=j.sha; try{doc=JSON.parse(b64dec(j.content));}catch(e){} }
+    else if(res0.status!==404) throw res0;
+    const now=new Date().toISOString();
+    dirty.forEach(c=>{ doc.papers=doc.papers||{}; doc.papers[c]=Object.assign({id:reportId(c),ready:isReady(c),publishedAt:now},shareable(c)); });
+    doc.version=1; doc.updatedAt=now;
+    const names=dirty.map(c=>`${c} ${S.papers[c].plan.meta.date||""}`.trim()).join(", ");
+    const body={message:`Update ${names} report`,content:b64enc(JSON.stringify(doc,null,1))}; if(sha) body.sha=sha;
+    const res=await fetch(apiUrl(r),{method:"PUT",headers:Object.assign(apiHeaders(true),{"Content-Type":"application/json"}),body:JSON.stringify(body)});
+    if(!res.ok) throw res;
+    dirty.forEach(c=>{ const p=S.papers[c]; p.publishedAt=now; p.syncedSig=sigOf(c); if(isReady(c)&&!p.readyPending) markSeen(c); });
+    store.set("dailyad.v3",S);
+    TEAM={state:"ok",msg:"",at:now};
+  }catch(err){
+    publishing=false;
+    const st=err&&err.status;
+    if((st===409||st===422)&&tries<2) return publishTeam(tries+1);
+    TEAM={state:"error",at:TEAM.at,msg: st===401?"The publishing key was refused. It may have expired. Enter a new one in Settings → Team sharing."
+      : st===403||st===404?"This publishing key can't save to the repository. Check that it has Contents: Read and write for this repository."
+      : "Couldn't save to the team copy. Check your internet connection. It will try again on the next change."};
+  }
+  publishing=false; renderTeam();
+}
+function renderTeam(){
+  const el=$("teamLine"); if(!el) return;
+  const r=repoInfo();
+  $("teamStatus").textContent = !r ? "Team sharing works on the GitHub link. Reports loaded here are saved on this computer only."
+    : TOKEN ? `Publishing to ${r.owner}/${r.repo}. This computer can update the team reports.`
+    : `Viewing team reports from ${r.owner}/${r.repo}. To publish from this computer, add a publishing key.`;
+  $("tokWrap").hidden=!!TOKEN||!r; $("tokOff").hidden=!TOKEN;
+  let t="", cls="team";
+  if(!r){ t="Saved on this computer only"; }
+  else if(TEAM.state==="busy"){ t="Saving to the team…"; }
+  else if(TEAM.state==="waiting"){ t="Changes will be shared with the team in a moment…"; }
+  else if(TEAM.state==="error"){ t=TEAM.msg; cls="team err"; }
+  else if(TOKEN){ t=TEAM.at?`Shared with the team · last saved ${fmtWhen(TEAM.at)}`:"Shared with the team"; }
+  else { t=TEAM.at?`Team reports · updated ${fmtWhen(TEAM.at)}`:"Team reports"; }
+  el.className=cls; $("teamText").textContent=t; $("teamRefresh").hidden=!r||!!TOKEN;
+}
+$("teamRefresh").addEventListener("click",()=>{ TEAM={state:"busy",msg:"",at:TEAM.at}; $("teamText").textContent="Checking for new reports…"; pullTeam(false); });
+$("tokSave").addEventListener("click",async()=>{
+  const v=$("tokIn").value.trim(), r=repoInfo(), msg=$("tokMsg"); if(!v){ msg.textContent="Paste the publishing key first."; return; }
+  if(!r){ msg.textContent="Open the page from its GitHub link to set up team sharing."; return; }
+  msg.textContent="Checking the key…";
+  try{
+    const res=await fetch(`https://api.github.com/repos/${r.owner}/${r.repo}`,{headers:{"Accept":"application/vnd.github+json","Authorization":"Bearer "+v}});
+    if(!res.ok) throw res; const j=await res.json();
+    if(j.permissions&&j.permissions.push===false){ msg.textContent="That key can only read this repository. Give it Contents: Read and write."; return; }
+    TOKEN=v; try{localStorage.setItem("dailyad.token",v);}catch(e){}
+    $("tokIn").value=""; msg.textContent="Connected. Reports finished on this computer are now shared with the team.";
+    Object.keys(PAPERS).forEach(c=>{ if(!S.papers[c].syncedSig) S.papers[c].syncedSig="new"; });
+    renderTeam(); schedulePublish();
+  }catch(e){ msg.textContent=e&&e.status===401?"GitHub didn't accept that key. Copy it again and paste the whole key.":"GitHub couldn't find this repository with that key. Check that the key includes this repository."; }
+});
+$("tokOff").addEventListener("click",()=>{ TOKEN=null; try{localStorage.removeItem("dailyad.token");}catch(e){} $("tokMsg").textContent="This computer no longer publishes. It still shows the team reports."; renderTeam(); });
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") pullTeam(true); });
+setInterval(()=>{ if(document.visibilityState==="visible") pullTeam(true); },5*60*1000);
+
 render();
+renderTeam();
 showPending();
+pullTeam(true);
 </script>
 </body>
 </html>
