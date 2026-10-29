@@ -1,0 +1,678 @@
+{
+ "papers": {
+  "TCR": {
+   "id": "TCR:TCR2026-11-02",
+   "ready": true,
+   "publishedAt": "2026-10-29T20:01:54.584Z",
+   "plan": {
+    "meta": {
+     "product": "Tri City Record",
+     "date": "11/2/26",
+     "plan": "TCR2026-11-02",
+     "file": "Thumbnails 11-02-26 TCR Monday.pdf",
+     "repDate": "2026-11-02"
+    },
+    "pages": [
+     {
+      "id": "A1",
+      "label": "Cover-default",
+      "inches": 9,
+      "rop": 9,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A2",
+      "label": "default",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A3",
+      "label": "Local-default",
+      "inches": 18.444,
+      "rop": 18.444,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A4",
+      "label": "default",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A5",
+      "label": "default",
+      "inches": 18.771,
+      "rop": 0,
+      "cls": 0,
+      "fill": 18.771,
+      "type": null
+     },
+     {
+      "id": "A6",
+      "label": "default",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A7",
+      "label": "default",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A8",
+      "label": "default-Opinion",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A9",
+      "label": "default",
+      "inches": 18.444,
+      "rop": 18.444,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A10",
+      "label": "default",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A11",
+      "label": "default",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A12",
+      "label": "default",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A13",
+      "label": "Regional/State-default",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A14",
+      "label": "default-State Wire",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A15",
+      "label": "default",
+      "inches": 68.244,
+      "rop": 0,
+      "cls": 68.244,
+      "fill": 0,
+      "type": "cls"
+     },
+     {
+      "id": "A16",
+      "label": "default",
+      "inches": 74.465,
+      "rop": 0,
+      "cls": 74.465,
+      "fill": 0,
+      "type": "cls"
+     },
+     {
+      "id": "A17",
+      "label": "Sports-default",
+      "inches": 9.334,
+      "rop": 9.334,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A18",
+      "label": "default",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A19",
+      "label": "ProCon-default",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A20",
+      "label": "default-Class",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     }
+    ]
+   },
+   "inserts": [],
+   "settings": {
+    "perPage": 75.75,
+    "kw": "Class",
+    "ex": "Death Notice",
+    "cw": "Obituar, Memoriam, Legal Notice",
+    "ch": "Pro Con, Marketplace",
+    "div": 1.708
+   }
+  },
+  "DH": {
+   "id": "DH:dh110226",
+   "ready": true,
+   "publishedAt": "2026-10-29T20:01:54.584Z",
+   "plan": {
+    "meta": {
+     "product": "Durango Herald",
+     "date": "11/2/26",
+     "plan": "dh110226",
+     "file": "11-02-26 DH Monday Thumbnails.pdf",
+     "repDate": "2026-11-02"
+    },
+    "pages": [
+     {
+      "id": "A1",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A2",
+      "label": "A Section",
+      "inches": 60,
+      "rop": 60,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A3",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A4",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A5",
+      "label": "A Section",
+      "inches": 60,
+      "rop": 60,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A6",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A7",
+      "label": "A Section",
+      "inches": 30,
+      "rop": 30,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A8",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A9",
+      "label": "A Section",
+      "inches": 68.004,
+      "rop": 0,
+      "cls": 68.004,
+      "fill": 0,
+      "type": "cls"
+     },
+     {
+      "id": "A10",
+      "label": "A Section",
+      "inches": 20.302,
+      "rop": 0,
+      "cls": 20.302,
+      "fill": 0,
+      "type": "cls"
+     },
+     {
+      "id": "A11",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A12",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     }
+    ]
+   },
+   "inserts": [],
+   "settings": {
+    "perPage": 126,
+    "kw": "Class",
+    "ex": "Death Notice",
+    "cw": "Obituar, Memoriam, Legal Notice",
+    "ch": "Pro Con, Marketplace",
+    "div": 1.708
+   }
+  },
+  "TJ": {
+   "id": "TJ:tj102826",
+   "ready": true,
+   "publishedAt": "2026-10-29T20:01:54.584Z",
+   "plan": {
+    "meta": {
+     "product": "The Journal",
+     "date": "10/28/26",
+     "plan": "tj102826",
+     "file": "10-28-26 TJ Wednesday Thumbnails.pdf",
+     "repDate": "2026-10-28"
+    },
+    "pages": [
+     {
+      "id": "A1",
+      "label": "A Section",
+      "inches": 15,
+      "rop": 15,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A2",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A3",
+      "label": "A Section",
+      "inches": 8.549,
+      "rop": 8.549,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A4",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A5",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A6",
+      "label": "A Section",
+      "inches": 30,
+      "rop": 30,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A7",
+      "label": "A Section",
+      "inches": 15,
+      "rop": 15,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A8",
+      "label": "A Section",
+      "inches": 22,
+      "rop": 22,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A9",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A10",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A11",
+      "label": "A Section",
+      "inches": 30,
+      "rop": 30,
+      "cls": 0,
+      "fill": 30,
+      "type": null
+     },
+     {
+      "id": "A12",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B1",
+      "label": "B Section",
+      "inches": 15,
+      "rop": 15,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B2",
+      "label": "B Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B3",
+      "label": "B Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B4",
+      "label": "B Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B5",
+      "label": "B Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B6",
+      "label": "B Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B7",
+      "label": "B Section",
+      "inches": 56,
+      "rop": 56,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B8",
+      "label": "B Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B9",
+      "label": "B Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B10",
+      "label": "B Section",
+      "inches": 50.125,
+      "rop": 50.125,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B11",
+      "label": "B Section",
+      "inches": 122.741,
+      "rop": 0,
+      "cls": 122.741,
+      "fill": 0,
+      "type": "cls"
+     },
+     {
+      "id": "B12",
+      "label": "B Section",
+      "inches": 65.616,
+      "rop": 65.616,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     }
+    ],
+    "insertsDone": true
+   },
+   "inserts": [
+    {
+     "name": "Save",
+     "h": 6.75,
+     "w": 10.25,
+     "pgs": 0
+    },
+    {
+     "name": "Livingston Hearing",
+     "h": 20,
+     "w": 10.5,
+     "pgs": 0
+    },
+    {
+     "name": "Safeway",
+     "h": 20.25,
+     "w": 8.25,
+     "pgs": 4
+    },
+    {
+     "name": "Safeway",
+     "h": 20.25,
+     "w": 3.5,
+     "pgs": 0
+    },
+    {
+     "name": "Life Screening",
+     "h": 8.5,
+     "w": 11,
+     "pgs": 0
+    },
+    {
+     "name": "Honeyville",
+     "h": 11,
+     "w": 8.5,
+     "pgs": 0
+    },
+    {
+     "name": "Smart Source",
+     "h": 6.25,
+     "w": 10.25,
+     "pgs": 0
+    },
+    {
+     "name": "Four Corners Welding",
+     "h": 20.25,
+     "w": 8.25,
+     "pgs": 0
+    },
+    {
+     "name": "Dollar General",
+     "h": 11,
+     "w": 7,
+     "pgs": 12
+    },
+    {
+     "name": "IFA",
+     "h": 11,
+     "w": 11,
+     "pgs": 0
+    },
+    {
+     "name": "Montezuma Tax Lein",
+     "h": 20.75,
+     "w": 10,
+     "pgs": 0
+    },
+    {
+     "name": "Slavens",
+     "h": 11,
+     "w": 11,
+     "pgs": 0
+    },
+    {
+     "name": "Best of Cortez",
+     "h": 11,
+     "w": 11,
+     "pgs": 0
+    },
+    {
+     "name": "REGuide",
+     "h": 8.5,
+     "w": 11,
+     "pgs": 0
+    },
+    {
+     "name": "",
+     "h": 0,
+     "w": 0,
+     "pgs": 0,
+     "temp": true
+    }
+   ],
+   "settings": {
+    "perPage": 126,
+    "kw": "Class",
+    "ex": "Death Notice",
+    "cw": "Obituar, Memoriam, Legal Notice",
+    "ch": "Pro Con, Marketplace",
+    "div": 1.708
+   }
+  }
+ },
+ "version": 1,
+ "updatedAt": "2026-10-29T20:01:54.584Z"
+}
