@@ -134,6 +134,14 @@ details summary{cursor:pointer;font-weight:600;font-size:14px}
 .team{font-size:13px;color:var(--muted);margin-top:4px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
 .team.err{color:var(--err)}
 button.link{background:none;border:0;padding:0;color:var(--rop);text-decoration:underline;font-size:13px;font-weight:600}
+.wts{border:1.5px solid var(--rule);border-radius:8px;padding:10px 14px 12px;margin:0;background:var(--paper)}
+.wts legend{font-weight:700;font-size:14px;padding:0 6px}
+.wts-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:420px){.wts-grid{grid-template-columns:1fr}}
+.wts label.f input{width:100%;font-size:18px;font-weight:600}
+.wts input[readonly]{background:var(--sheet);color:var(--ink);border-style:dashed;cursor:default}
+.wts .conv{font-family:var(--f-num);font-size:12px;color:var(--muted)}
+.wts .note{margin-top:8px}
 #printArea{display:none}
 @media print{
   @page{size:letter;margin:0}
@@ -186,9 +194,16 @@ button.link{background:none;border:0;padding:0;color:var(--rop);text-decoration:
         <div class="row">
           <label class="f" for="repDate">Report date<input id="repDate" type="date"></label>
           <label class="f" for="repWt" id="wtLabel">Weight (WT)<input id="repWt" type="number" min="0" step="0.01"></label>
-          <label class="f" for="repWtIn" id="wtInWrap">Weight with inserts<input id="repWtIn" type="number" min="0" step="0.01"></label>
         </div>
         <p class="note" id="wtNote"></p>
+        <fieldset class="wts" id="tjWeights" hidden>
+          <legend>TJ weights</legend>
+          <div class="wts-grid">
+            <label class="f" for="repWtIn">IN weight (paper with inserts)<input id="repWtIn" type="number" min="0" step="0.01" placeholder="e.g. 5.2"><span class="conv" id="convIn"></span></label>
+            <label class="f" for="repWtOut">OUT weight (paper only)<input id="repWtOut" type="text" readonly tabindex="-1"><span class="conv" id="convOut"></span></label>
+          </div>
+          <p class="note" id="tjWtNote"></p>
+        </fieldset>
         <div id="insertsPanel" hidden>
           <h3 style="margin-bottom:6px">Inserts</h3>
           <p class="note" style="margin-bottom:8px">Paste this week's schedule above, or enter the page count for each insert by hand. Height × width × pages adds up the insert inches, then inserts ÷ <span id="divShow"></span> = TM.</p>
@@ -257,7 +272,7 @@ button.link{background:none;border:0;padding:0;color:var(--rop);text-decoration:
       <tbody id="rows"></tbody>
     </table></div>
   </section>
-  <p class="note" style="text-align:center">Version 10/27/26 2:30 PM</p>
+  <p class="note" style="text-align:center">Version 11/2/26 2:10 PM</p>
 </div>
 <div class="ready" id="ready" role="status" hidden>
   <div class="ready-in">
@@ -327,7 +342,7 @@ function totals(){
   const div=+st.settings.div||1.708, tm=insertsIn/div;
   const tpadIn=counted+tm, tbrIn=paper+tpadIn;
   const wtRow=cfg.wt.find(r=>r[0]===n);
-  const wt=+st.plan.meta.weight>0?+st.plan.meta.weight:(wtRow?wtRow[2]:0);
+  const wt=cfg.inserts?(wtRow?wtRow[2]:0):(+st.plan.meta.weight>0?+st.plan.meta.weight:(wtRow?wtRow[2]:0));
   const wtIn=+st.plan.meta.weightIn||0;
   return {cap,n,auto,paper,fill,counted,pct:pct(counted),
     rop:Object.assign(g.rop,{pct:pct(g.rop.inch),adPages:cap?g.rop.inch/cap:0}),
@@ -448,9 +463,15 @@ function render(){
   $("sheetView").innerHTML=opsToSvg(currentOps());
   const d=$("repDate"); if(document.activeElement!==d) d.value=m.repDate||todayISO();
   const w=$("repWt"); if(document.activeElement!==w) w.value=T.wt||"";
-  $("wtLabel").firstChild.textContent=cfg.inserts?"Weight, paper only (OUT)":"Weight (WT)";
-  $("wtInWrap").hidden=!cfg.inserts;
-  const wi=$("repWtIn"); if(document.activeElement!==wi) wi.value=T.wtIn||"";
+  $("wtLabel").hidden=!!cfg.inserts; $("wtNote").hidden=!!cfg.inserts; $("tjWeights").hidden=!cfg.inserts;
+  if(cfg.inserts){
+    const wi=$("repWtIn"); if(document.activeElement!==wi) wi.value=T.wtIn||"";
+    $("repWtOut").value=T.wt?T.wt.toFixed(1):"—";
+    $("convIn").textContent=T.wtIn?`Prints as ${wtText(T.wtIn)}`:"Not entered yet";
+    $("convOut").textContent=T.wt?`From the weight table for ${T.n} pages · prints as ${wtText(T.wt)}`:`The weight table has no entry for ${T.n} pages`;
+    const r=cfg.wt.find(x=>x[0]===T.n);
+    $("tjWtNote").textContent="Type the IN weight each issue. OUT fills in automatically from the page count.";
+  }
   const row=cfg.wt.find(r=>r[0]===T.n);
   $("wtNote").textContent=row?`The weight table lists ${T.n} pages as ${row[1]}. Type the weighed amount if it's different.`:`The weight table has no entry for ${T.n} pages. Type the weighed amount.`;
   $("insertsPanel").hidden=!cfg.inserts; $("divWrap").hidden=!cfg.inserts;
