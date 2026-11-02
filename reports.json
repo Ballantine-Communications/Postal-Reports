@@ -377,7 +377,7 @@
   "TJ": {
    "id": "TJ:tj110426",
    "ready": true,
-   "publishedAt": "2026-11-02T21:07:37.967Z",
+   "publishedAt": "2026-11-02T21:07:58.267Z",
    "plan": {
     "meta": {
      "product": "The Journal",
@@ -410,7 +410,7 @@
       "id": "A3",
       "label": "A Section",
       "inches": 24.167,
-      "rop": 24.167,
+      "rop": 0,
       "cls": 24.167,
       "fill": 0,
       "type": "cls"
@@ -582,7 +582,7 @@
       "label": "B Section",
       "inches": 15.276,
       "rop": 10.142,
-      "cls": 5.134,
+      "cls": 15.276,
       "fill": 0,
       "type": "cls"
      },
@@ -711,5 +711,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-02T21:07:37.967Z"
+ "updatedAt": "2026-11-02T21:07:58.267Z"
 }
