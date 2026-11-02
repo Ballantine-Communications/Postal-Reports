@@ -375,16 +375,16 @@
    }
   },
   "TJ": {
-   "id": "TJ:tj102826",
-   "ready": true,
-   "publishedAt": "2026-10-29T20:01:54.584Z",
+   "id": "TJ:tj110426",
+   "ready": false,
+   "publishedAt": "2026-11-02T21:04:35.777Z",
    "plan": {
     "meta": {
      "product": "The Journal",
-     "date": "10/28/26",
-     "plan": "tj102826",
-     "file": "10-28-26 TJ Wednesday Thumbnails.pdf",
-     "repDate": "2026-10-28"
+     "date": "11/4/26",
+     "plan": "tj110426",
+     "file": "11-04-26 TJ Wednesday Thumbnails.pdf",
+     "repDate": "2026-11-04"
     },
     "pages": [
      {
@@ -408,8 +408,8 @@
      {
       "id": "A3",
       "label": "A Section",
-      "inches": 8.549,
-      "rop": 8.549,
+      "inches": 24.167,
+      "rop": 24.167,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -444,8 +444,8 @@
      {
       "id": "A7",
       "label": "A Section",
-      "inches": 15,
-      "rop": 15,
+      "inches": 60,
+      "rop": 60,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -453,8 +453,8 @@
      {
       "id": "A8",
       "label": "A Section",
-      "inches": 22,
-      "rop": 22,
+      "inches": 60,
+      "rop": 60,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -480,10 +480,10 @@
      {
       "id": "A11",
       "label": "A Section",
-      "inches": 30,
+      "inches": 53,
       "rop": 30,
       "cls": 0,
-      "fill": 30,
+      "fill": 23,
       "type": null
      },
      {
@@ -516,8 +516,8 @@
      {
       "id": "B3",
       "label": "B Section",
-      "inches": 0,
-      "rop": 0,
+      "inches": 24,
+      "rop": 24,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -579,32 +579,31 @@
      {
       "id": "B10",
       "label": "B Section",
-      "inches": 50.125,
-      "rop": 50.125,
+      "inches": 15.276,
+      "rop": 10.142,
       "cls": 0,
-      "fill": 0,
+      "fill": 5.134,
       "type": null
      },
      {
       "id": "B11",
       "label": "B Section",
-      "inches": 122.741,
-      "rop": 0,
-      "cls": 122.741,
+      "inches": 123.008,
+      "rop": 123.008,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "B12",
       "label": "B Section",
-      "inches": 65.616,
-      "rop": 65.616,
+      "inches": 41.761,
+      "rop": 41.761,
       "cls": 0,
       "fill": 0,
       "type": null
      }
-    ],
-    "insertsDone": true
+    ]
    },
    "inserts": [
     {
@@ -623,7 +622,7 @@
      "name": "Safeway",
      "h": 20.25,
      "w": 8.25,
-     "pgs": 4
+     "pgs": 0
     },
     {
      "name": "Safeway",
@@ -659,7 +658,7 @@
      "name": "Dollar General",
      "h": 11,
      "w": 7,
-     "pgs": 12
+     "pgs": 0
     },
     {
      "name": "IFA",
@@ -690,13 +689,6 @@
      "h": 8.5,
      "w": 11,
      "pgs": 0
-    },
-    {
-     "name": "",
-     "h": 0,
-     "w": 0,
-     "pgs": 0,
-     "temp": true
     }
    ],
    "settings": {
@@ -710,5 +702,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-02T21:03:21.492Z"
+ "updatedAt": "2026-11-02T21:04:35.777Z"
 }
