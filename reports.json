@@ -376,8 +376,8 @@
   },
   "TJ": {
    "id": "TJ:tj110426",
-   "ready": false,
-   "publishedAt": "2026-11-02T21:04:35.777Z",
+   "ready": true,
+   "publishedAt": "2026-11-02T21:06:06.976Z",
    "plan": {
     "meta": {
      "product": "The Journal",
@@ -603,14 +603,15 @@
       "fill": 0,
       "type": null
      }
-    ]
+    ],
+    "insertsDone": true
    },
    "inserts": [
     {
      "name": "Save",
      "h": 6.75,
      "w": 10.25,
-     "pgs": 0
+     "pgs": 12
     },
     {
      "name": "Livingston Hearing",
@@ -622,7 +623,7 @@
      "name": "Safeway",
      "h": 20.25,
      "w": 8.25,
-     "pgs": 0
+     "pgs": 4
     },
     {
      "name": "Safeway",
@@ -658,7 +659,7 @@
      "name": "Dollar General",
      "h": 11,
      "w": 7,
-     "pgs": 0
+     "pgs": 8
     },
     {
      "name": "IFA",
@@ -689,6 +690,13 @@
      "h": 8.5,
      "w": 11,
      "pgs": 0
+    },
+    {
+     "name": "Flavor",
+     "h": 0,
+     "w": 0,
+     "pgs": 48,
+     "temp": true
     }
    ],
    "settings": {
@@ -702,5 +710,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-02T21:04:35.777Z"
+ "updatedAt": "2026-11-02T21:06:06.976Z"
 }
