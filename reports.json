@@ -1,16 +1,16 @@
 {
  "papers": {
   "TCR": {
-   "id": "TCR:TCR2026-11-04",
+   "id": "TCR:TCR2026-11-06",
    "ready": true,
-   "publishedAt": "2026-11-02T20:49:22.763Z",
+   "publishedAt": "2026-11-05T19:38:33.310Z",
    "plan": {
     "meta": {
      "product": "Tri City Record",
-     "date": "11/4/26",
-     "plan": "TCR2026-11-04",
-     "file": "11-04-26 TCR Wednesday Thumbnails.pdf",
-     "repDate": "2026-11-04"
+     "date": "11/6/26",
+     "plan": "TCR2026-11-06",
+     "file": "Thumbnails 11-06-26 TCR Friday.pdf",
+     "repDate": "2026-11-06"
     },
     "pages": [
      {
@@ -43,8 +43,8 @@
      {
       "id": "A4",
       "label": "default",
-      "inches": 37.542,
-      "rop": 37.542,
+      "inches": 0,
+      "rop": 0,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -52,17 +52,17 @@
      {
       "id": "A5",
       "label": "default",
-      "inches": 37.542,
+      "inches": 39.771,
       "rop": 0,
-      "cls": 0,
-      "fill": 37.542,
-      "type": "rop"
+      "cls": 39.771,
+      "fill": 0,
+      "type": null
      },
      {
       "id": "A6",
       "label": "default",
-      "inches": 0,
-      "rop": 0,
+      "inches": 37.542,
+      "rop": 37.542,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -70,8 +70,8 @@
      {
       "id": "A7",
       "label": "default",
-      "inches": 0,
-      "rop": 0,
+      "inches": 37.542,
+      "rop": 37.542,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -79,8 +79,8 @@
      {
       "id": "A8",
       "label": "default-Opinion",
-      "inches": 18.444,
-      "rop": 18.444,
+      "inches": 60,
+      "rop": 60,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -142,19 +142,19 @@
      {
       "id": "A15",
       "label": "default",
-      "inches": 68.357,
-      "rop": 0,
-      "cls": 68.357,
-      "fill": 0,
-      "type": "cls"
+      "inches": 68.566,
+      "rop": 21,
+      "cls": 0,
+      "fill": 47.566,
+      "type": null
      },
      {
       "id": "A16",
       "label": "default",
-      "inches": 1.247,
-      "rop": 1.247,
+      "inches": 54.161,
+      "rop": 0,
       "cls": 0,
-      "fill": 0,
+      "fill": 54.161,
       "type": null
      },
      {
@@ -169,8 +169,8 @@
      {
       "id": "A18",
       "label": "default",
-      "inches": 0,
-      "rop": 0,
+      "inches": 9.222,
+      "rop": 9.222,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -819,5 +819,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-05T19:37:42.497Z"
+ "updatedAt": "2026-11-05T19:38:33.310Z"
 }
