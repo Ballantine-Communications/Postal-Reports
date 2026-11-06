@@ -206,23 +206,23 @@
    }
   },
   "DH": {
-   "id": "DH:dh110626",
+   "id": "DH:dh110926",
    "ready": true,
-   "publishedAt": "2026-11-05T19:37:42.497Z",
+   "publishedAt": "2026-11-06T16:46:11.356Z",
    "plan": {
     "meta": {
      "product": "Durango Herald",
-     "date": "11/6/26",
-     "plan": "dh110626",
-     "file": "11-06-26 DH Friday Thumbnails.pdf",
-     "repDate": "2026-11-06"
+     "date": "11/9/26",
+     "plan": "dh110926",
+     "file": "11-09-26 DH Monday Thumbnails.pdf",
+     "repDate": "2026-11-09"
     },
     "pages": [
      {
       "id": "A1",
       "label": "A Section",
-      "inches": 15,
-      "rop": 15,
+      "inches": 0,
+      "rop": 0,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -230,8 +230,8 @@
      {
       "id": "A2",
       "label": "A Section",
-      "inches": 0,
-      "rop": 0,
+      "inches": 23.104,
+      "rop": 23.104,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -248,19 +248,19 @@
      {
       "id": "A4",
       "label": "A Section",
-      "inches": 66.479,
+      "inches": 0,
       "rop": 0,
-      "cls": 66.479,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "A5",
       "label": "A Section",
-      "inches": 67.5,
-      "rop": 15,
+      "inches": 30,
+      "rop": 30,
       "cls": 0,
-      "fill": 52.5,
+      "fill": 0,
       "type": null
      },
      {
@@ -291,8 +291,17 @@
       "type": null
      },
      {
-      "id": "B1",
-      "label": "B Section",
+      "id": "A9",
+      "label": "A Section",
+      "inches": 12,
+      "rop": 12,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A10",
+      "label": "A Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -300,8 +309,8 @@
       "type": null
      },
      {
-      "id": "B2",
-      "label": "B Section",
+      "id": "A11",
+      "label": "A Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -309,166 +318,13 @@
       "type": null
      },
      {
-      "id": "B3",
-      "label": "B Section",
-      "inches": 60,
-      "rop": 60,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "B4",
-      "label": "B Section",
+      "id": "A12",
+      "label": "A Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
       "fill": 0,
       "type": null
-     },
-     {
-      "id": "B5",
-      "label": "B Section",
-      "inches": 0,
-      "rop": 0,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "B6",
-      "label": "B Section",
-      "inches": 0,
-      "rop": 0,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "B7",
-      "label": "B Section",
-      "inches": 0,
-      "rop": 0,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "B8",
-      "label": "B Section",
-      "inches": 0,
-      "rop": 0,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "C1",
-      "label": "C Section",
-      "inches": 0,
-      "rop": 0,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "C2",
-      "label": "C Section",
-      "inches": 0,
-      "rop": 0,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "C3",
-      "label": "C Section",
-      "inches": 0,
-      "rop": 0,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "C4",
-      "label": "C Section",
-      "inches": 52.5,
-      "rop": 52.5,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "C5",
-      "label": "C Section",
-      "inches": 8,
-      "rop": 8,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "C6",
-      "label": "C Section",
-      "inches": 0,
-      "rop": 0,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "D1",
-      "label": "D Section",
-      "inches": 0,
-      "rop": 0,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "D2",
-      "label": "D Section",
-      "inches": 60,
-      "rop": 60,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "D3",
-      "label": "D Section",
-      "inches": 123,
-      "rop": 123,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "D4",
-      "label": "D Section",
-      "inches": 51.779,
-      "rop": 0,
-      "cls": 51.779,
-      "fill": 0,
-      "type": "cls"
-     },
-     {
-      "id": "D5",
-      "label": "D Section",
-      "inches": 6,
-      "rop": 0,
-      "cls": 6,
-      "fill": 0,
-      "type": "cls"
-     },
-     {
-      "id": "D6",
-      "label": "D Section",
-      "inches": 20.569,
-      "rop": 0,
-      "cls": 20.569,
-      "fill": 0,
-      "type": "cls"
      }
     ]
    },
@@ -819,5 +675,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-06T16:44:30.056Z"
+ "updatedAt": "2026-11-06T16:46:11.356Z"
 }
