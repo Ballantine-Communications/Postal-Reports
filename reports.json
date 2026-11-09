@@ -375,17 +375,16 @@
    }
   },
   "TJ": {
-   "id": "TJ:tj110426",
-   "ready": true,
-   "publishedAt": "2026-11-02T21:08:25.097Z",
+   "id": "TJ:tj111126",
+   "ready": false,
+   "publishedAt": "2026-11-09T22:23:14.987Z",
    "plan": {
     "meta": {
      "product": "The Journal",
-     "date": "11/4/26",
-     "plan": "tj110426",
-     "file": "11-04-26 TJ Wednesday Thumbnails.pdf",
-     "repDate": "2026-11-04",
-     "weightIn": 8.6
+     "date": "11/11/26",
+     "plan": "tj111126",
+     "file": "11-11-26 TJ Wednesday Thumbnails.pdf",
+     "repDate": "2026-11-11"
     },
     "pages": [
      {
@@ -409,11 +408,11 @@
      {
       "id": "A3",
       "label": "A Section",
-      "inches": 24.167,
+      "inches": 0,
       "rop": 0,
-      "cls": 24.167,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "A4",
@@ -445,8 +444,8 @@
      {
       "id": "A7",
       "label": "A Section",
-      "inches": 60,
-      "rop": 60,
+      "inches": 15,
+      "rop": 15,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -454,8 +453,8 @@
      {
       "id": "A8",
       "label": "A Section",
-      "inches": 60,
-      "rop": 60,
+      "inches": 15,
+      "rop": 15,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -481,10 +480,10 @@
      {
       "id": "A11",
       "label": "A Section",
-      "inches": 53,
-      "rop": 30,
+      "inches": 30,
+      "rop": 0,
       "cls": 0,
-      "fill": 23,
+      "fill": 30,
       "type": null
      },
      {
@@ -517,8 +516,8 @@
      {
       "id": "B3",
       "label": "B Section",
-      "inches": 24,
-      "rop": 24,
+      "inches": 0,
+      "rop": 0,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -580,39 +579,38 @@
      {
       "id": "B10",
       "label": "B Section",
-      "inches": 15.276,
-      "rop": 0,
-      "cls": 15.276,
-      "fill": 0,
-      "type": "cls"
+      "inches": 28.262,
+      "rop": 1.103,
+      "cls": 0,
+      "fill": 27.159,
+      "type": null
      },
      {
       "id": "B11",
       "label": "B Section",
-      "inches": 123.008,
-      "rop": 0,
-      "cls": 123.008,
+      "inches": 99.516,
+      "rop": 99.516,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "B12",
       "label": "B Section",
-      "inches": 41.761,
-      "rop": 0,
-      "cls": 41.761,
+      "inches": 21,
+      "rop": 21,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      }
-    ],
-    "insertsDone": true
+    ]
    },
    "inserts": [
     {
      "name": "Save",
      "h": 6.75,
      "w": 10.25,
-     "pgs": 12
+     "pgs": 0
     },
     {
      "name": "Livingston Hearing",
@@ -624,7 +622,7 @@
      "name": "Safeway",
      "h": 20.25,
      "w": 8.25,
-     "pgs": 4
+     "pgs": 0
     },
     {
      "name": "Safeway",
@@ -660,7 +658,7 @@
      "name": "Dollar General",
      "h": 11,
      "w": 7,
-     "pgs": 8
+     "pgs": 0
     },
     {
      "name": "IFA",
@@ -691,13 +689,6 @@
      "h": 8.5,
      "w": 11,
      "pgs": 0
-    },
-    {
-     "name": "Flavor",
-     "h": 0,
-     "w": 0,
-     "pgs": 48,
-     "temp": true
     }
    ],
    "settings": {
@@ -711,5 +702,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-09T22:20:58.210Z"
+ "updatedAt": "2026-11-09T22:23:14.987Z"
 }
