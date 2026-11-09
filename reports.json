@@ -377,7 +377,7 @@
   "TJ": {
    "id": "TJ:tj111126",
    "ready": true,
-   "publishedAt": "2026-11-09T22:26:54.981Z",
+   "publishedAt": "2026-11-09T22:27:11.609Z",
    "plan": {
     "meta": {
      "product": "The Journal",
@@ -697,13 +697,6 @@
      "w": 0,
      "pgs": 1,
      "temp": true
-    },
-    {
-     "name": "A\\Aladrmacndar,",
-     "h": 0,
-     "w": 0,
-     "pgs": 0,
-     "temp": true
     }
    ],
    "settings": {
@@ -717,5 +710,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-09T22:26:54.981Z"
+ "updatedAt": "2026-11-09T22:27:11.609Z"
 }
