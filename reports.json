@@ -206,48 +206,48 @@
    }
   },
   "DH": {
-   "id": "DH:dh110926",
+   "id": "DH:dh111126",
    "ready": true,
-   "publishedAt": "2026-11-06T16:46:52.341Z",
+   "publishedAt": "2026-11-09T22:14:12.823Z",
    "plan": {
     "meta": {
      "product": "Durango Herald",
-     "date": "11/9/26",
-     "plan": "dh110926",
-     "file": "11-09-26 DH Monday Thumbnails.pdf",
-     "repDate": "2026-11-09"
+     "date": "11/11/26",
+     "plan": "dh111126",
+     "file": "11-11-26 DH Wednesday Thumbnails.pdf",
+     "repDate": "2026-11-11"
     },
     "pages": [
      {
       "id": "A1",
-      "label": "A Section",
-      "inches": 0,
-      "rop": 0,
+      "label": "News",
+      "inches": 15,
+      "rop": 15,
       "cls": 0,
       "fill": 0,
       "type": null
      },
      {
       "id": "A2",
-      "label": "A Section",
-      "inches": 23.104,
-      "rop": 23.104,
-      "cls": 23.104,
+      "label": "News",
+      "inches": 93.708,
+      "rop": 93.708,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "A3",
-      "label": "A Section",
-      "inches": 0,
-      "rop": 0,
+      "label": "News",
+      "inches": 24,
+      "rop": 24,
       "cls": 0,
       "fill": 0,
       "type": null
      },
      {
       "id": "A4",
-      "label": "A Section",
+      "label": "News",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -256,16 +256,16 @@
      },
      {
       "id": "A5",
-      "label": "A Section",
-      "inches": 30,
+      "label": "News",
+      "inches": 60,
       "rop": 30,
       "cls": 0,
-      "fill": 0,
+      "fill": 30,
       "type": null
      },
      {
       "id": "A6",
-      "label": "A Section",
+      "label": "News",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -274,7 +274,7 @@
      },
      {
       "id": "A7",
-      "label": "A Section",
+      "label": "News",
       "inches": 30,
       "rop": 30,
       "cls": 0,
@@ -283,7 +283,7 @@
      },
      {
       "id": "A8",
-      "label": "A Section",
+      "label": "News",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -291,17 +291,8 @@
       "type": null
      },
      {
-      "id": "A9",
-      "label": "A Section",
-      "inches": 12,
-      "rop": 12,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "A10",
-      "label": "A Section",
+      "id": "B1",
+      "label": "Food",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -309,8 +300,17 @@
       "type": null
      },
      {
-      "id": "A11",
-      "label": "A Section",
+      "id": "B2",
+      "label": "Food",
+      "inches": 60,
+      "rop": 60,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B3",
+      "label": "Food",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -318,8 +318,44 @@
       "type": null
      },
      {
-      "id": "A12",
-      "label": "A Section",
+      "id": "B4",
+      "label": "Food",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B5",
+      "label": "Food",
+      "inches": 74.992,
+      "rop": 74.992,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B6",
+      "label": "Food",
+      "inches": 11.126,
+      "rop": 11.126,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B7",
+      "label": "Food",
+      "inches": 23.584,
+      "rop": 23.584,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "B8",
+      "label": "Food",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -675,5 +711,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-06T16:46:52.341Z"
+ "updatedAt": "2026-11-09T22:14:12.823Z"
 }
