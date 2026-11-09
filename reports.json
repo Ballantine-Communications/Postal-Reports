@@ -376,8 +376,8 @@
   },
   "TJ": {
    "id": "TJ:tj111126",
-   "ready": false,
-   "publishedAt": "2026-11-09T22:26:38.508Z",
+   "ready": true,
+   "publishedAt": "2026-11-09T22:26:54.981Z",
    "plan": {
     "meta": {
      "product": "The Journal",
@@ -603,7 +603,8 @@
       "fill": 0,
       "type": null
      }
-    ]
+    ],
+    "insertsDone": true
    },
    "inserts": [
     {
@@ -622,7 +623,7 @@
      "name": "Safeway",
      "h": 20.25,
      "w": 8.25,
-     "pgs": 6
+     "pgs": 0
     },
     {
      "name": "Safeway",
@@ -658,7 +659,7 @@
      "name": "Dollar General",
      "h": 11,
      "w": 7,
-     "pgs": 0
+     "pgs": 6
     },
     {
      "name": "IFA",
@@ -689,6 +690,20 @@
      "h": 8.5,
      "w": 11,
      "pgs": 0
+    },
+    {
+     "name": "| True Value",
+     "h": 0,
+     "w": 0,
+     "pgs": 1,
+     "temp": true
+    },
+    {
+     "name": "A\\Aladrmacndar,",
+     "h": 0,
+     "w": 0,
+     "pgs": 0,
+     "temp": true
     }
    ],
    "settings": {
@@ -702,5 +717,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-09T22:26:38.508Z"
+ "updatedAt": "2026-11-09T22:26:54.981Z"
 }
