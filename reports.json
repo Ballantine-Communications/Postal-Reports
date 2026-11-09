@@ -377,7 +377,7 @@
   "TJ": {
    "id": "TJ:tj111126",
    "ready": true,
-   "publishedAt": "2026-11-09T22:27:18.226Z",
+   "publishedAt": "2026-11-09T22:27:38.650Z",
    "plan": {
     "meta": {
      "product": "The Journal",
@@ -659,7 +659,7 @@
      "name": "Dollar General",
      "h": 11,
      "w": 7,
-     "pgs": 6
+     "pgs": 12
     },
     {
      "name": "IFA",
@@ -710,5 +710,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-09T22:27:18.226Z"
+ "updatedAt": "2026-11-09T22:27:38.650Z"
 }
