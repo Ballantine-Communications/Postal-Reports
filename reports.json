@@ -377,7 +377,7 @@
   "TJ": {
    "id": "TJ:tj111126",
    "ready": true,
-   "publishedAt": "2026-11-09T22:27:11.609Z",
+   "publishedAt": "2026-11-09T22:27:18.226Z",
    "plan": {
     "meta": {
      "product": "The Journal",
@@ -623,7 +623,7 @@
      "name": "Safeway",
      "h": 20.25,
      "w": 8.25,
-     "pgs": 0
+     "pgs": 6
     },
     {
      "name": "Safeway",
@@ -710,5 +710,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-09T22:27:11.609Z"
+ "updatedAt": "2026-11-09T22:27:18.226Z"
 }
