@@ -206,21 +206,21 @@
    }
   },
   "DH": {
-   "id": "DH:dh111126",
+   "id": "DH:dh111326",
    "ready": true,
-   "publishedAt": "2026-11-09T22:17:42.559Z",
+   "publishedAt": "2026-11-12T19:04:38.219Z",
    "plan": {
     "meta": {
      "product": "Durango Herald",
-     "date": "11/11/26",
-     "plan": "dh111126",
-     "file": "11-11-26 DH Wednesday Thumbnails.pdf",
-     "repDate": "2026-11-11"
+     "date": "11/13/26",
+     "plan": "dh111326",
+     "file": "11-13-26 DH Friday Thumbnails.pdf",
+     "repDate": "2026-11-13"
     },
     "pages": [
      {
       "id": "A1",
-      "label": "News",
+      "label": "A Section",
       "inches": 15,
       "rop": 15,
       "cls": 0,
@@ -229,25 +229,7 @@
      },
      {
       "id": "A2",
-      "label": "News",
-      "inches": 93.708,
-      "rop": 60,
-      "cls": 33.708,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "A3",
-      "label": "News",
-      "inches": 24,
-      "rop": 24,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "A4",
-      "label": "News",
+      "label": "A Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -255,17 +237,35 @@
       "type": null
      },
      {
-      "id": "A5",
-      "label": "News",
-      "inches": 60,
-      "rop": 30,
+      "id": "A3",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
       "cls": 0,
-      "fill": 30,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A4",
+      "label": "A Section",
+      "inches": 71.646,
+      "rop": 71.646,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A5",
+      "label": "A Section",
+      "inches": 52.5,
+      "rop": 0,
+      "cls": 0,
+      "fill": 52.5,
       "type": null
      },
      {
       "id": "A6",
-      "label": "News",
+      "label": "A Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -274,7 +274,7 @@
      },
      {
       "id": "A7",
-      "label": "News",
+      "label": "A Section",
       "inches": 30,
       "rop": 30,
       "cls": 0,
@@ -283,7 +283,7 @@
      },
      {
       "id": "A8",
-      "label": "News",
+      "label": "A Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -292,7 +292,7 @@
      },
      {
       "id": "B1",
-      "label": "Food",
+      "label": "B Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -301,16 +301,7 @@
      },
      {
       "id": "B2",
-      "label": "Food",
-      "inches": 60,
-      "rop": 60,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "B3",
-      "label": "Food",
+      "label": "B Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -318,8 +309,17 @@
       "type": null
      },
      {
+      "id": "B3",
+      "label": "B Section",
+      "inches": 52.5,
+      "rop": 52.5,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
       "id": "B4",
-      "label": "Food",
+      "label": "B Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -328,36 +328,144 @@
      },
      {
       "id": "B5",
-      "label": "Food",
-      "inches": 74.992,
+      "label": "B Section",
+      "inches": 0,
       "rop": 0,
-      "cls": 74.992,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "B6",
-      "label": "Food",
-      "inches": 11.126,
+      "label": "B Section",
+      "inches": 0,
       "rop": 0,
-      "cls": 11.126,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "B7",
-      "label": "Food",
-      "inches": 23.584,
-      "rop": 23.584,
-      "cls": 23.584,
+      "label": "B Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "B8",
-      "label": "Food",
+      "label": "B Section",
       "inches": 0,
       "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "C1",
+      "label": "C Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "C2",
+      "label": "C Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "C3",
+      "label": "C Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "C4",
+      "label": "C Section",
+      "inches": 15,
+      "rop": 15,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "C5",
+      "label": "C Section",
+      "inches": 36.8,
+      "rop": 0,
+      "cls": 0,
+      "fill": 36.8,
+      "type": null
+     },
+     {
+      "id": "C6",
+      "label": "C Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "D1",
+      "label": "D Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "D2",
+      "label": "D Section",
+      "inches": 60,
+      "rop": 60,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "D3",
+      "label": "D Section",
+      "inches": 86.148,
+      "rop": 86.148,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "D4",
+      "label": "D Section",
+      "inches": 48,
+      "rop": 48,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "D5",
+      "label": "D Section",
+      "inches": 6,
+      "rop": 6,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "D6",
+      "label": "D Section",
+      "inches": 27.942,
+      "rop": 27.942,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -711,5 +819,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-12T19:03:48.450Z"
+ "updatedAt": "2026-11-12T19:04:38.219Z"
 }
