@@ -1,16 +1,16 @@
 {
  "papers": {
   "TCR": {
-   "id": "TCR:TCR2026-11-11",
+   "id": "TCR:TCR2026-11-13",
    "ready": true,
-   "publishedAt": "2026-11-09T22:20:58.210Z",
+   "publishedAt": "2026-11-12T19:01:39.812Z",
    "plan": {
     "meta": {
      "product": "Tri City Record",
-     "date": "11/11/26",
-     "plan": "TCR2026-11-11",
-     "file": "Thumbnails 11-11-26 TCR Wednesday.pdf",
-     "repDate": "2026-11-11"
+     "date": "11/13/26",
+     "plan": "TCR2026-11-13",
+     "file": "Thumbnails 11-13-26 TCR Friday.pdf",
+     "repDate": "2026-11-13"
     },
     "pages": [
      {
@@ -61,8 +61,8 @@
      {
       "id": "A6",
       "label": "default",
-      "inches": 0,
-      "rop": 0,
+      "inches": 37.542,
+      "rop": 37.542,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -142,19 +142,19 @@
      {
       "id": "A15",
       "label": "default",
-      "inches": 52.492,
+      "inches": 65.019,
       "rop": 2.344,
-      "cls": 50.148,
-      "fill": 0,
-      "type": "cls"
+      "cls": 0,
+      "fill": 62.675,
+      "type": null
      },
      {
       "id": "A16",
       "label": "default",
-      "inches": 0,
-      "rop": 0,
+      "inches": 38.796,
+      "rop": 21,
       "cls": 0,
-      "fill": 0,
+      "fill": 17.796,
       "type": null
      },
      {
@@ -187,9 +187,9 @@
      {
       "id": "A20",
       "label": "default-Class",
-      "inches": 0,
+      "inches": 75.75,
       "rop": 0,
-      "cls": 0,
+      "cls": 75.75,
       "fill": 0,
       "type": null
      }
@@ -711,5 +711,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-09T22:29:38.687Z"
+ "updatedAt": "2026-11-12T19:01:39.812Z"
 }
