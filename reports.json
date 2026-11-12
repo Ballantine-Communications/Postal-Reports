@@ -208,7 +208,7 @@
   "DH": {
    "id": "DH:dh111326",
    "ready": true,
-   "publishedAt": "2026-11-12T19:04:38.219Z",
+   "publishedAt": "2026-11-12T19:04:57.055Z",
    "plan": {
     "meta": {
      "product": "Durango Herald",
@@ -252,7 +252,7 @@
       "rop": 71.646,
       "cls": 0,
       "fill": 0,
-      "type": null
+      "type": "cls"
      },
      {
       "id": "A5",
@@ -819,5 +819,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-12T19:04:38.219Z"
+ "updatedAt": "2026-11-12T19:04:57.055Z"
 }
