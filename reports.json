@@ -1,23 +1,23 @@
 {
  "papers": {
   "TCR": {
-   "id": "TCR:TCR2026-11-13",
+   "id": "TCR:TCR2026-11-16",
    "ready": true,
-   "publishedAt": "2026-11-12T19:03:48.450Z",
+   "publishedAt": "2026-11-13T20:20:09.401Z",
    "plan": {
     "meta": {
      "product": "Tri City Record",
-     "date": "11/13/26",
-     "plan": "TCR2026-11-13",
-     "file": "Thumbnails 11-13-26 TCR Friday.pdf",
-     "repDate": "2026-11-13"
+     "date": "11/16/26",
+     "plan": "TCR2026-11-16",
+     "file": "Thumbnails 11-16-26 TCR Monday.pdf",
+     "repDate": "2026-11-16"
     },
     "pages": [
      {
       "id": "A1",
       "label": "Cover-default",
-      "inches": 0,
-      "rop": 0,
+      "inches": 9,
+      "rop": 9,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -53,16 +53,16 @@
       "id": "A5",
       "label": "default",
       "inches": 37.542,
-      "rop": 37.542,
+      "rop": 0,
       "cls": 0,
-      "fill": 0,
+      "fill": 37.542,
       "type": null
      },
      {
       "id": "A6",
       "label": "default",
-      "inches": 37.542,
-      "rop": 37.542,
+      "inches": 0,
+      "rop": 0,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -142,18 +142,18 @@
      {
       "id": "A15",
       "label": "default",
-      "inches": 65.019,
-      "rop": 2.344,
-      "cls": 62.675,
-      "fill": 0,
-      "type": "cls"
+      "inches": 46.78,
+      "rop": 0,
+      "cls": 0,
+      "fill": 46.78,
+      "type": null
      },
      {
       "id": "A16",
       "label": "default",
-      "inches": 38.796,
-      "rop": 21,
-      "cls": 17.796,
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
       "fill": 0,
       "type": null
      },
@@ -187,11 +187,11 @@
      {
       "id": "A20",
       "label": "default-Class",
-      "inches": 75.75,
-      "rop": 75.75,
+      "inches": 0,
+      "rop": 0,
       "cls": 0,
       "fill": 0,
-      "type": "rop"
+      "type": null
      }
     ]
    },
@@ -819,5 +819,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-12T19:09:03.263Z"
+ "updatedAt": "2026-11-13T20:20:09.401Z"
 }
