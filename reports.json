@@ -376,8 +376,8 @@
   },
   "TJ": {
    "id": "TJ:tj111826",
-   "ready": false,
-   "publishedAt": "2026-11-16T21:53:45.055Z",
+   "ready": true,
+   "publishedAt": "2026-11-16T21:53:51.746Z",
    "plan": {
     "meta": {
      "product": "The Journal",
@@ -603,14 +603,15 @@
       "fill": 0,
       "type": "cls"
      }
-    ]
+    ],
+    "insertsDone": true
    },
    "inserts": [
     {
      "name": "Save",
      "h": 6.75,
      "w": 10.25,
-     "pgs": 4
+     "pgs": 0
     },
     {
      "name": "Livingston Hearing",
@@ -622,7 +623,7 @@
      "name": "Safeway",
      "h": 20.25,
      "w": 8.25,
-     "pgs": 4
+     "pgs": 0
     },
     {
      "name": "Safeway",
@@ -634,13 +635,13 @@
      "name": "Life Screening",
      "h": 8.5,
      "w": 11,
-     "pgs": 0
+     "pgs": 1
     },
     {
      "name": "Honeyville",
      "h": 11,
      "w": 8.5,
-     "pgs": 0
+     "pgs": 4
     },
     {
      "name": "Smart Source",
@@ -689,6 +690,13 @@
      "h": 8.5,
      "w": 11,
      "pgs": 0
+    },
+    {
+     "name": "Albertsons",
+     "h": 0,
+     "w": 0,
+     "pgs": 0,
+     "temp": true
     }
    ],
    "settings": {
@@ -702,5 +710,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-16T21:53:45.055Z"
+ "updatedAt": "2026-11-16T21:53:51.746Z"
 }
