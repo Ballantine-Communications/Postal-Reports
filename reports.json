@@ -377,7 +377,7 @@
   "TJ": {
    "id": "TJ:tj111826",
    "ready": true,
-   "publishedAt": "2026-11-16T21:58:00.919Z",
+   "publishedAt": "2026-11-16T21:58:09.563Z",
    "plan": {
     "meta": {
      "product": "The Journal",
@@ -635,7 +635,7 @@
      "name": "Life Screening",
      "h": 8.5,
      "w": 11,
-     "pgs": 1
+     "pgs": 0
     },
     {
      "name": "Honeyville",
@@ -659,7 +659,7 @@
      "name": "Dollar General",
      "h": 11,
      "w": 7,
-     "pgs": 0
+     "pgs": 4
     },
     {
      "name": "IFA",
@@ -710,5 +710,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-16T21:58:00.919Z"
+ "updatedAt": "2026-11-16T21:58:09.563Z"
 }
