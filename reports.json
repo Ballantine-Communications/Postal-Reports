@@ -208,7 +208,7 @@
   "DH": {
    "id": "DH:dh111826",
    "ready": true,
-   "publishedAt": "2026-11-16T21:44:47.886Z",
+   "publishedAt": "2026-11-16T21:44:58.595Z",
    "plan": {
     "meta": {
      "product": "Durango Herald",
@@ -331,7 +331,7 @@
       "label": "Food",
       "inches": 89.964,
       "rop": 89.964,
-      "cls": 0,
+      "cls": 89.964,
       "fill": 0,
       "type": "cls"
      },
@@ -711,5 +711,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-16T21:44:47.886Z"
+ "updatedAt": "2026-11-16T21:44:58.595Z"
 }
