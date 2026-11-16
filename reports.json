@@ -3,7 +3,7 @@
   "TCR": {
    "id": "TCR:TCR2026-11-18",
    "ready": true,
-   "publishedAt": "2026-11-16T21:45:39.715Z",
+   "publishedAt": "2026-11-16T21:47:01.821Z",
    "plan": {
     "meta": {
      "product": "Tri City Record",
@@ -54,9 +54,9 @@
       "label": "default",
       "inches": 37.542,
       "rop": 0,
-      "cls": 0,
-      "fill": 37.542,
-      "type": null
+      "cls": 37.542,
+      "fill": 0,
+      "type": "cls"
      },
      {
       "id": "A6",
@@ -711,5 +711,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-16T21:45:39.715Z"
+ "updatedAt": "2026-11-16T21:47:01.821Z"
 }
