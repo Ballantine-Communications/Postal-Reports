@@ -377,7 +377,7 @@
   "TJ": {
    "id": "TJ:tj111826",
    "ready": true,
-   "publishedAt": "2026-11-16T21:54:07.790Z",
+   "publishedAt": "2026-11-16T21:58:00.919Z",
    "plan": {
     "meta": {
      "product": "The Journal",
@@ -641,7 +641,7 @@
      "name": "Honeyville",
      "h": 11,
      "w": 8.5,
-     "pgs": 4
+     "pgs": 0
     },
     {
      "name": "Smart Source",
@@ -710,5 +710,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-16T21:54:07.790Z"
+ "updatedAt": "2026-11-16T21:58:00.919Z"
 }
