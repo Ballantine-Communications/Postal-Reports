@@ -1,16 +1,16 @@
 {
  "papers": {
   "TCR": {
-   "id": "TCR:TCR2026-11-18",
+   "id": "TCR:TCR2026-11-20",
    "ready": true,
-   "publishedAt": "2026-11-16T21:47:32.979Z",
+   "publishedAt": "2026-11-19T18:11:44.606Z",
    "plan": {
     "meta": {
      "product": "Tri City Record",
-     "date": "11/18/26",
-     "plan": "TCR2026-11-18",
-     "file": "Thumbnails 11-18-26 TCR Wednesday.pdf",
-     "repDate": "2026-11-18"
+     "date": "11/20/26",
+     "plan": "TCR2026-11-20",
+     "file": "Thumbnails 11-20-26 TCR Friday.pdf",
+     "repDate": "2026-11-20"
     },
     "pages": [
      {
@@ -52,14 +52,23 @@
      {
       "id": "A5",
       "label": "default",
-      "inches": 37.542,
+      "inches": 18.771,
       "rop": 0,
-      "cls": 37.542,
-      "fill": 0,
-      "type": "cls"
+      "cls": 0,
+      "fill": 18.771,
+      "type": null
      },
      {
       "id": "A6",
+      "label": "default",
+      "inches": 36,
+      "rop": 36,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A7",
       "label": "default",
       "inches": 37.542,
       "rop": 37.542,
@@ -68,19 +77,10 @@
       "type": null
      },
      {
-      "id": "A7",
-      "label": "default",
-      "inches": 0,
-      "rop": 0,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
       "id": "A8",
       "label": "default-Opinion",
-      "inches": 0,
-      "rop": 0,
+      "inches": 37.542,
+      "rop": 37.542,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -88,8 +88,8 @@
      {
       "id": "A9",
       "label": "default",
-      "inches": 0,
-      "rop": 0,
+      "inches": 18.444,
+      "rop": 18.444,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -97,10 +97,10 @@
      {
       "id": "A10",
       "label": "default",
-      "inches": 0,
+      "inches": 37.542,
       "rop": 0,
       "cls": 0,
-      "fill": 0,
+      "fill": 37.542,
       "type": null
      },
      {
@@ -142,19 +142,19 @@
      {
       "id": "A15",
       "label": "default",
-      "inches": 64.512,
+      "inches": 66.87,
       "rop": 0,
-      "cls": 64.512,
-      "fill": 0,
+      "cls": 0,
+      "fill": 66.87,
       "type": null
      },
      {
       "id": "A16",
       "label": "default",
-      "inches": 3,
-      "rop": 3,
+      "inches": 35.274,
+      "rop": 0,
       "cls": 0,
-      "fill": 0,
+      "fill": 35.274,
       "type": null
      },
      {
@@ -169,8 +169,8 @@
      {
       "id": "A18",
       "label": "default",
-      "inches": 9.222,
-      "rop": 9.222,
+      "inches": 0,
+      "rop": 0,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -711,5 +711,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-16T21:58:19.435Z"
+ "updatedAt": "2026-11-19T18:11:44.606Z"
 }
