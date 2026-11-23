@@ -341,14 +341,15 @@
   "TJ": {
    "id": "TJ:tj112526",
    "ready": true,
-   "publishedAt": "2026-11-23T23:17:19.703Z",
+   "publishedAt": "2026-11-23T23:17:33.412Z",
    "plan": {
     "meta": {
      "product": "The Journal",
      "date": "11/25/26",
      "plan": "tj112526",
      "file": "11-25-26 DH Wednesday Thumbnails.pdf",
-     "repDate": "2026-11-25"
+     "repDate": "2026-11-25",
+     "weightIn": 11.6
     },
     "pages": [
      {
@@ -674,5 +675,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-23T23:17:19.703Z"
+ "updatedAt": "2026-11-23T23:17:33.412Z"
 }
