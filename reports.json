@@ -340,8 +340,8 @@
   },
   "TJ": {
    "id": "TJ:tj112526",
-   "ready": false,
-   "publishedAt": "2026-11-23T23:15:47.870Z",
+   "ready": true,
+   "publishedAt": "2026-11-23T23:17:05.010Z",
    "plan": {
     "meta": {
      "product": "The Journal",
@@ -567,7 +567,8 @@
       "fill": 0,
       "type": "cls"
      }
-    ]
+    ],
+    "insertsDone": true
    },
    "inserts": [
     {
@@ -622,13 +623,13 @@
      "name": "Dollar General",
      "h": 11,
      "w": 7,
-     "pgs": 0
+     "pgs": 12
     },
     {
      "name": "IFA",
      "h": 11,
      "w": 11,
-     "pgs": 0
+     "pgs": 16
     },
     {
      "name": "Montezuma Tax Lein",
@@ -653,6 +654,13 @@
      "h": 8.5,
      "w": 11,
      "pgs": 0
+    },
+    {
+     "name": "Real Estate Guide",
+     "h": 0,
+     "w": 0,
+     "pgs": 76,
+     "temp": true
     }
    ],
    "settings": {
@@ -666,5 +674,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-23T23:15:47.870Z"
+ "updatedAt": "2026-11-23T23:17:05.010Z"
 }
