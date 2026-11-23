@@ -341,13 +341,13 @@
   "TJ": {
    "id": "TJ:tj112526",
    "ready": false,
-   "publishedAt": "2026-11-23T23:21:56.558Z",
+   "publishedAt": "2026-11-23T23:22:11.939Z",
    "plan": {
     "meta": {
      "product": "The Journal",
      "date": "11/25/26",
      "plan": "tj112526",
-     "file": "11-25-26 DH Wednesday Pages.pdf",
+     "file": "11-25-26 TJ Wednesday Thumbnails.pdf",
      "repDate": "2026-11-25"
     },
     "pages": [
@@ -445,9 +445,9 @@
       "id": "A11",
       "label": "A Section",
       "inches": 45,
-      "rop": 45,
+      "rop": 30,
       "cls": 0,
-      "fill": 0,
+      "fill": 15,
       "type": null
      },
      {
@@ -666,5 +666,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-23T23:21:56.558Z"
+ "updatedAt": "2026-11-23T23:22:11.939Z"
 }
