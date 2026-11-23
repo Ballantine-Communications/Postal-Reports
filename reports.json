@@ -340,15 +340,16 @@
   },
   "TJ": {
    "id": "TJ:tj112526",
-   "ready": false,
-   "publishedAt": "2026-11-23T23:22:11.939Z",
+   "ready": true,
+   "publishedAt": "2026-11-23T23:22:31.625Z",
    "plan": {
     "meta": {
      "product": "The Journal",
      "date": "11/25/26",
      "plan": "tj112526",
      "file": "11-25-26 TJ Wednesday Thumbnails.pdf",
-     "repDate": "2026-11-25"
+     "repDate": "2026-11-25",
+     "weightIn": 11.6
     },
     "pages": [
      {
@@ -567,7 +568,8 @@
       "fill": 0,
       "type": null
      }
-    ]
+    ],
+    "insertsDone": true
    },
    "inserts": [
     {
@@ -622,13 +624,13 @@
      "name": "Dollar General",
      "h": 11,
      "w": 7,
-     "pgs": 0
+     "pgs": 12
     },
     {
      "name": "IFA",
      "h": 11,
      "w": 11,
-     "pgs": 0
+     "pgs": 16
     },
     {
      "name": "Montezuma Tax Lein",
@@ -652,7 +654,7 @@
      "name": "REGuide",
      "h": 8.5,
      "w": 11,
-     "pgs": 0
+     "pgs": 76
     }
    ],
    "settings": {
@@ -666,5 +668,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-23T23:22:11.939Z"
+ "updatedAt": "2026-11-23T23:22:31.625Z"
 }
