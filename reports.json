@@ -341,7 +341,7 @@
   "TJ": {
    "id": "TJ:tj112526",
    "ready": true,
-   "publishedAt": "2026-11-23T23:17:05.010Z",
+   "publishedAt": "2026-11-23T23:17:19.703Z",
    "plan": {
     "meta": {
      "product": "The Journal",
@@ -653,13 +653,13 @@
      "name": "REGuide",
      "h": 8.5,
      "w": 11,
-     "pgs": 0
+     "pgs": 76
     },
     {
      "name": "Real Estate Guide",
      "h": 0,
      "w": 0,
-     "pgs": 76,
+     "pgs": 0,
      "temp": true
     }
    ],
@@ -674,5 +674,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-23T23:17:05.010Z"
+ "updatedAt": "2026-11-23T23:17:19.703Z"
 }
