@@ -341,7 +341,7 @@
   "TJ": {
    "id": "TJ:tj112526",
    "ready": true,
-   "publishedAt": "2026-11-23T23:20:37.608Z",
+   "publishedAt": "2026-11-23T23:20:49.031Z",
    "plan": {
     "meta": {
      "product": "The Journal",
@@ -546,7 +546,7 @@
       "label": "B Section",
       "inches": 114.122,
       "rop": 114.122,
-      "cls": 0,
+      "cls": 114.122,
       "fill": 0,
       "type": "cls"
      },
@@ -668,5 +668,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-23T23:20:37.608Z"
+ "updatedAt": "2026-11-23T23:20:49.031Z"
 }
