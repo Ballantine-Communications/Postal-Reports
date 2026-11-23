@@ -340,16 +340,15 @@
   },
   "TJ": {
    "id": "TJ:tj112526",
-   "ready": true,
-   "publishedAt": "2026-11-23T23:21:10.693Z",
+   "ready": false,
+   "publishedAt": "2026-11-23T23:21:56.558Z",
    "plan": {
     "meta": {
      "product": "The Journal",
      "date": "11/25/26",
      "plan": "tj112526",
-     "file": "11-25-26 TJ Wednesday Thumbnails.pdf",
-     "repDate": "2026-11-25",
-     "weightIn": 11.6
+     "file": "11-25-26 DH Wednesday Pages.pdf",
+     "repDate": "2026-11-25"
     },
     "pages": [
      {
@@ -446,9 +445,9 @@
       "id": "A11",
       "label": "A Section",
       "inches": 45,
-      "rop": 30,
+      "rop": 45,
       "cls": 0,
-      "fill": 15,
+      "fill": 0,
       "type": null
      },
      {
@@ -545,31 +544,30 @@
       "id": "B10",
       "label": "B Section",
       "inches": 114.122,
-      "rop": 0,
-      "cls": 114.122,
+      "rop": 114.122,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "B11",
       "label": "B Section",
       "inches": 63.084,
-      "rop": 0,
-      "cls": 63.084,
+      "rop": 63.084,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "B12",
       "label": "B Section",
       "inches": 82.731,
-      "rop": 0,
-      "cls": 82.731,
+      "rop": 82.731,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      }
-    ],
-    "insertsDone": true
+    ]
    },
    "inserts": [
     {
@@ -624,13 +622,13 @@
      "name": "Dollar General",
      "h": 11,
      "w": 7,
-     "pgs": 12
+     "pgs": 0
     },
     {
      "name": "IFA",
      "h": 11,
      "w": 11,
-     "pgs": 16
+     "pgs": 0
     },
     {
      "name": "Montezuma Tax Lein",
@@ -654,7 +652,7 @@
      "name": "REGuide",
      "h": 8.5,
      "w": 11,
-     "pgs": 76
+     "pgs": 0
     }
    ],
    "settings": {
@@ -668,5 +666,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-23T23:21:10.693Z"
+ "updatedAt": "2026-11-23T23:21:56.558Z"
 }
