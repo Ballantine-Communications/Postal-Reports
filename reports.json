@@ -208,7 +208,7 @@
   "DH": {
    "id": "DH:dh112526",
    "ready": true,
-   "publishedAt": "2026-11-24T16:50:00.713Z",
+   "publishedAt": "2026-11-24T16:50:19.764Z",
    "plan": {
     "meta": {
      "product": "Durango Herald",
@@ -330,7 +330,7 @@
       "id": "B5",
       "label": "Food",
       "inches": 68.442,
-      "rop": 68.442,
+      "rop": 0,
       "cls": 68.442,
       "fill": 0,
       "type": "cls"
@@ -339,8 +339,8 @@
       "id": "B6",
       "label": "Food",
       "inches": 77.457,
-      "rop": 77.457,
-      "cls": 0,
+      "rop": 0,
+      "cls": 77.457,
       "fill": 0,
       "type": "cls"
      },
@@ -349,7 +349,7 @@
       "label": "Food",
       "inches": 30.643,
       "rop": 30.643,
-      "cls": 0,
+      "cls": 30.643,
       "fill": 0,
       "type": "cls"
      },
@@ -704,5 +704,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-24T16:50:00.713Z"
+ "updatedAt": "2026-11-24T16:50:19.764Z"
 }
