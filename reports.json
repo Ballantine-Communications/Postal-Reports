@@ -1,16 +1,16 @@
 {
  "papers": {
   "TCR": {
-   "id": "TCR:TCR2026-11-25",
+   "id": "TCR:TCR2026-11-27",
    "ready": true,
-   "publishedAt": "2026-11-23T21:17:26.797Z",
+   "publishedAt": "2026-11-25T18:55:13.330Z",
    "plan": {
     "meta": {
      "product": "Tri City Record",
-     "date": "11/25/26",
-     "plan": "TCR2026-11-25",
-     "file": "Thumbnails 11-25-26 TCR Wednesday.pdf",
-     "repDate": "2026-11-25"
+     "date": "11/27/26",
+     "plan": "TCR2026-11-27",
+     "file": "Thumbnails 11-27-26 TCR Friday.pdf",
+     "repDate": "2026-11-27"
     },
     "pages": [
      {
@@ -43,8 +43,8 @@
      {
       "id": "A4",
       "label": "default",
-      "inches": 0,
-      "rop": 0,
+      "inches": 37.542,
+      "rop": 37.542,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -61,8 +61,8 @@
      {
       "id": "A6",
       "label": "default",
-      "inches": 37.542,
-      "rop": 37.542,
+      "inches": 30.222,
+      "rop": 30.222,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -70,8 +70,8 @@
      {
       "id": "A7",
       "label": "default",
-      "inches": 0,
-      "rop": 0,
+      "inches": 37.542,
+      "rop": 37.542,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -79,8 +79,8 @@
      {
       "id": "A8",
       "label": "default-Opinion",
-      "inches": 0,
-      "rop": 0,
+      "inches": 18.771,
+      "rop": 18.771,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -142,20 +142,20 @@
      {
       "id": "A15",
       "label": "default",
-      "inches": 67.97,
+      "inches": 53.587,
       "rop": 0,
-      "cls": 67.97,
-      "fill": 0,
-      "type": "cls"
+      "cls": 0,
+      "fill": 53.587,
+      "type": null
      },
      {
       "id": "A16",
       "label": "default",
-      "inches": 63.981,
-      "rop": 63.981,
-      "cls": 63.981,
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "A17",
@@ -187,9 +187,9 @@
      {
       "id": "A20",
       "label": "default-Class",
-      "inches": 0,
+      "inches": 75.75,
       "rop": 0,
-      "cls": 0,
+      "cls": 75.75,
       "fill": 0,
       "type": null
      }
@@ -812,5 +812,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-25T18:50:52.314Z"
+ "updatedAt": "2026-11-25T18:55:13.330Z"
 }
