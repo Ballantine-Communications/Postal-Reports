@@ -208,7 +208,7 @@
   "DH": {
    "id": "DH:dh113026",
    "ready": true,
-   "publishedAt": "2026-11-25T20:55:14.554Z",
+   "publishedAt": "2026-11-25T20:55:36.313Z",
    "plan": {
     "meta": {
      "product": "Durango Herald",
@@ -297,7 +297,7 @@
       "rop": 75.175,
       "cls": 0,
       "fill": 0,
-      "type": null
+      "type": "cls"
      },
      {
       "id": "A10",
@@ -306,7 +306,7 @@
       "rop": 31.047,
       "cls": 0,
       "fill": 0,
-      "type": null
+      "type": "cls"
      },
      {
       "id": "A11",
@@ -668,5 +668,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-25T20:55:14.554Z"
+ "updatedAt": "2026-11-25T20:55:36.313Z"
 }
