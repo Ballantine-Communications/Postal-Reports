@@ -206,21 +206,21 @@
    }
   },
   "DH": {
-   "id": "DH:dh112526",
+   "id": "DH:dh112726",
    "ready": true,
-   "publishedAt": "2026-11-24T16:50:19.764Z",
+   "publishedAt": "2026-11-25T17:59:50.132Z",
    "plan": {
     "meta": {
      "product": "Durango Herald",
-     "date": "11/25/26",
-     "plan": "dh112526",
-     "file": "Thumbnails 11-25-26 DH Wednesday FINALIZED.pdf",
-     "repDate": "2026-11-25"
+     "date": "11/27/26",
+     "plan": "dh112726",
+     "file": "Thumbnails 11-27-26 DH Friday FINALIZED.pdf",
+     "repDate": "2026-11-27"
     },
     "pages": [
      {
       "id": "A1",
-      "label": "News",
+      "label": "A Section",
       "inches": 15,
       "rop": 15,
       "cls": 0,
@@ -229,25 +229,7 @@
      },
      {
       "id": "A2",
-      "label": "News",
-      "inches": 23.896,
-      "rop": 0,
-      "cls": 23.896,
-      "fill": 0,
-      "type": "cls"
-     },
-     {
-      "id": "A3",
-      "label": "News",
-      "inches": 24,
-      "rop": 24,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "A4",
-      "label": "News",
+      "label": "A Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -255,17 +237,35 @@
       "type": null
      },
      {
+      "id": "A3",
+      "label": "A Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "A4",
+      "label": "A Section",
+      "inches": 17.354,
+      "rop": 17.354,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
       "id": "A5",
-      "label": "News",
-      "inches": 60,
-      "rop": 60,
+      "label": "A Section",
+      "inches": 30,
+      "rop": 30,
       "cls": 0,
       "fill": 0,
       "type": null
      },
      {
       "id": "A6",
-      "label": "News",
+      "label": "A Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -274,16 +274,16 @@
      },
      {
       "id": "A7",
-      "label": "News",
-      "inches": 30,
-      "rop": 30,
+      "label": "A Section",
+      "inches": 15,
+      "rop": 15,
       "cls": 0,
       "fill": 0,
       "type": null
      },
      {
       "id": "A8",
-      "label": "News",
+      "label": "A Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -292,7 +292,7 @@
      },
      {
       "id": "B1",
-      "label": "Food",
+      "label": "B Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -301,16 +301,7 @@
      },
      {
       "id": "B2",
-      "label": "Food",
-      "inches": 60,
-      "rop": 60,
-      "cls": 0,
-      "fill": 0,
-      "type": null
-     },
-     {
-      "id": "B3",
-      "label": "Food",
+      "label": "B Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -318,8 +309,17 @@
       "type": null
      },
      {
+      "id": "B3",
+      "label": "B Section",
+      "inches": 45,
+      "rop": 30,
+      "cls": 0,
+      "fill": 15,
+      "type": null
+     },
+     {
       "id": "B4",
-      "label": "Food",
+      "label": "B Section",
       "inches": 0,
       "rop": 0,
       "cls": 0,
@@ -328,36 +328,144 @@
      },
      {
       "id": "B5",
-      "label": "Food",
-      "inches": 68.442,
+      "label": "B Section",
+      "inches": 0,
       "rop": 0,
-      "cls": 68.442,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "B6",
-      "label": "Food",
-      "inches": 77.457,
+      "label": "B Section",
+      "inches": 0,
       "rop": 0,
-      "cls": 77.457,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "B7",
-      "label": "Food",
-      "inches": 30.643,
-      "rop": 30.643,
-      "cls": 30.643,
+      "label": "B Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
       "fill": 0,
-      "type": "cls"
+      "type": null
      },
      {
       "id": "B8",
-      "label": "Food",
+      "label": "B Section",
       "inches": 0,
       "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "C1",
+      "label": "C Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "C2",
+      "label": "C Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "C3",
+      "label": "C Section",
+      "inches": 15,
+      "rop": 15,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "C4",
+      "label": "C Section",
+      "inches": 15,
+      "rop": 15,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "C5",
+      "label": "C Section",
+      "inches": 36.8,
+      "rop": 0,
+      "cls": 0,
+      "fill": 36.8,
+      "type": null
+     },
+     {
+      "id": "C6",
+      "label": "C Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "D1",
+      "label": "D Section",
+      "inches": 0,
+      "rop": 0,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "D2",
+      "label": "D Section",
+      "inches": 60,
+      "rop": 60,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "D3",
+      "label": "D Section",
+      "inches": 104.491,
+      "rop": 104.491,
+      "cls": 0,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "D4",
+      "label": "D Section",
+      "inches": 96.89,
+      "rop": 0,
+      "cls": 96.89,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "D5",
+      "label": "D Section",
+      "inches": 8.073,
+      "rop": 0,
+      "cls": 8.073,
+      "fill": 0,
+      "type": null
+     },
+     {
+      "id": "D6",
+      "label": "D Section",
+      "inches": 46.057,
+      "rop": 46.057,
       "cls": 0,
       "fill": 0,
       "type": null
@@ -704,5 +812,5 @@
   }
  },
  "version": 1,
- "updatedAt": "2026-11-24T16:50:19.764Z"
+ "updatedAt": "2026-11-25T17:59:50.132Z"
 }
